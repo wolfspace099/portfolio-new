@@ -178,7 +178,7 @@
 <div id="easter-popup">
   <div class="easter-win">
     <div class="easter-bar">
-      <span class="easter-bar-title">ERROR<span style="color:#9060b0">.EXE</span></span>
+      <span class="easter-bar-title">ERROR<span style="color:#bcbcbc">.EXE</span></span>
       <div class="easter-close" onclick="closeEaster()">x</div>
     </div>
     <div class="easter-body">
@@ -196,7 +196,7 @@
     <div style="padding:32px;text-align:center">
       <div style="font-size:13px;color:var(--text);letter-spacing:2px;margin-bottom:14px">NEED TO VERIFY YOUR IDENTITY</div>
       <p style="font-size:9px;color:var(--dim);line-height:2.2;margin-bottom:28px">Log into Discord to ensure you are not a bot and verify you as a user</p>
-      <button onclick="doDiscordLogin()" style="font-family:'Press Start 2P',monospace;font-size:11px;background:#5865F2;color:#fff;border:none;padding:16px 28px;letter-spacing:1px;width:100%;box-shadow:4px 4px 0 rgba(0,0,0,.28);margin-bottom:18px">LOG IN WITH DISCORD</button>
+      <button onclick="doDiscordLogin()" style="font-family:'Press Start 2P',monospace;font-size:11px;background:#d0d0d0;color:#050505;border:none;padding:16px 28px;letter-spacing:1px;width:100%;box-shadow:4px 4px 0 rgba(0,0,0,.28);margin-bottom:18px">LOG IN WITH DISCORD</button>
       <button onclick="openAnonConfirmPopup()" style="font-family:'Press Start 2P',monospace;font-size:8px;background:none;border:none;color:var(--dim);letter-spacing:1px;padding:4px;text-decoration:underline">Stay anonymous</button>
     </div>
   </div>
@@ -229,7 +229,7 @@
     <div class="review-popup-body">
     <div class="win-label">LEAVE A REVIEW</div>
     <!-- Discord connected indicator -->
-    <div id="discord-connected-bar" style="display:none;background:var(--bg);border:2px solid #5865F2;padding:10px 14px;margin-bottom:16px;font-size:9px;color:#5865F2;letter-spacing:1px">âœ“ LOGGED IN AS <span id="discord-username-display" style="color:var(--text)"></span></div>
+    <div id="discord-connected-bar" style="display:none;background:var(--bg);border:2px solid #d0d0d0;padding:10px 14px;margin-bottom:16px;font-size:9px;color:#d0d0d0;letter-spacing:1px">âœ“ LOGGED IN AS <span id="discord-username-display" style="color:var(--text)"></span></div>
     <form class="rform" id="rform">
         <div class="form-row2">
         <div class="field"><label>YOUR NAME</label><input type="text" id="r-name" required placeholder="Your name"></div>
@@ -359,7 +359,7 @@
         <button class="form-submit" id="login-btn" style="flex:1">LOGIN</button>
         <button class="btn btn-outline" onclick="closeAdmin()" style="flex:1;font-size:11px">CANCEL</button>
       </div>
-      <p id="admin-err" style="display:none;font-size:10px;color:#cc0066;margin-top:14px;letter-spacing:1px">WRONG PASSWORD</p>
+      <p id="admin-err" style="display:none;font-size:10px;color:#d0d0d0;margin-top:14px;letter-spacing:1px">WRONG PASSWORD</p>
     </div>
   </div>
   <div class="win admin-win" id="admin-dash" style="display:none">
@@ -397,4 +397,6 @@
 <script src="/script.js"></script>
 </body>
 </html>
+
+
 
