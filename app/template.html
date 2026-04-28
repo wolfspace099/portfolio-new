@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CQT.EXE</title>
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/app/style.css">
+</head>
+<body>
+<main class="page">
+<section class="win top-window">
+  <div class="win-titlebar">
+    <span class="win-title"><span class="topbar-logo"><span>CQT</span>.EXE</span></span>
+    <nav><ul class="topbar-nav">
+      <li><a href="#about">ABOUT</a></li>
+      <li><a href="#specialties">SPECIALTIES</a></li>
+      <li><a href="#projects">WORK</a></li>
+      <li><a href="#skills">SKILLS</a></li>
+      <li><a href="#reviews">REVIEWS</a></li>
+      <li><a href="#quote">QUOTE</a></li>
+    </ul></nav>
+    <button class="topbar-admin" onclick="openAdmin()">ADMIN.EXE</button>
+  </div>
+  <div class="win-body">
+    <section class="hero">
+      <p class="hero-prompt">CAT DEV</p>
+      <h1 class="hero-name">MEOW,<br>I'M <span class="acc">CQT.EXE</span></h1>
+      <p class="hero-sub"><span id="typed-out"></span><span class="cursor"></span></p>
+      <div class="hero-btns">
+        <a href="#projects" class="btn btn-fill">VIEW WORK</a>
+        <a href="#quote" class="btn btn-outline">GET A QUOTE</a>
+      </div>
+    </section>
+  </div>
+</section>
+
+<section id="about"><div class="win">
+  <div class="win-titlebar"><span class="win-title">ABOUT<span class="dim">.EXE</span></span>
+  <div class="win-controls"><div class="win-btn">-</div><div class="win-btn">+</div><div class="win-btn">x</div></div></div>
+  <div class="win-body"><div class="win-label">BIOGRAPHY</div>
+  <div class="about-grid">
+    <div class="pfp-side">
+      <div class="pfp-wrap"><img class="pfp-img" src="/images/pfp.png" alt="Cqt"></div>
+      <div class="about-sep"></div>
+      <div class="about-meta">
+        <div class="meta-row"><span class="lbl">STATUS</span><span class="val">OPEN FOR SLAVERY</span></div>
+        <div class="meta-row"><span class="lbl">LOCATION</span><span class="val">REMOTE.DDL</span></div>
+        <div class="meta-row"><span class="lbl">PAYMENT</span><span class="val">PAYPAL</span></div>
+        <div class="meta-row"><span class="lbl">PRONOUNS</span><span class="val">ULTRA/NERD</span></div>
+      </div>
+    </div>
+    <div class="about-text">
+      <p>Hey! I'm Cqt, a cat that just loves coding! And involuntary labour so much, he made it his part-time (actually full-time thinking of it) job. </p>
+      <p>Tho I code a lot, I am a college student, but that part of my life is quite boring as I don't really care, well do I care, but I just do it with ease.</p>
+      <p>A aspect about me is: perfectionism, so don't ask me to make a drafty, shitty plugin, as I just won't cope with it. Go find urself another plugin dev to enslave for that.</p>
+        <p>And yes, I am a linux user and yes, I trash Apple, and yes, I wanna kill Microslop atm, but I am able to seperate this from my professional side (sometimes)</p>
+    </div>
+  </div></div></div></section>
+
+<section id="specialties"><div class="win">
+  <div class="win-titlebar"><span class="win-title">SPECIALTIES<span class="dim">.EXE</span></span>
+  <div class="win-controls"><div class="win-btn">-</div><div class="win-btn">+</div><div class="win-btn">x</div></div></div>
+  <div class="win-body">
+    <div class="win-label">WHY I'M THE BEST OPTION</div>
+    <div class="special-intro">
+      <p>I deliver fast, clean and reliable work. I listen to feedback and edit immediately and eliminate bugs as effective as possible.</p>
+      <p>Maintaining good communication throughout the job is important as it saves time, gets me to work more effectivly and is just funsies.</p>
+    </div>
+    <div class="special-head">TOP QUALITIES</div>
+    <div class="special-grid">
+      <div class="special-card big">
+        <div class="special-card-header"><span>FAST DELIVERY</span></div>
+        <p>Moves quickly without turning the code into a mess. If I am not too busy I can make SMP plugins in 2 days.</p>
+        <a class="special-btn" href="#quote">REQUEST</a>
+      </div>
+      <div class="special-card big">
+        <div class="special-card-header"><span>FULL STACK</span></div>
+        <p>Can handle front-end, back-end, and everything between. And a whole lot more you aint care about.</p>
+        <a class="special-btn" href="#projects">SEE WORK</a>
+      </div>
+      <div class="special-card big">
+        <div class="special-card-header"><span>CAT</span></div>
+        <p>I am a cat, so that automatically makes me smarter than the average human.</p>
+        <a class="special-btn" href="#about">ABOUT ME</a>
+      </div>
+      <div class="special-card big">
+        <div class="special-card-header"><span>DIRECT COMM</span></div>
+        <p>Clear updates, no fluff, no confusion, no wasted time. Straight buglog and good insight on whats done and not.</p>
+        <a class="special-btn" href="#reviews">REVIEWS</a>
+      </div>
+    </div>
+  </div></div></section>
+
+<section id="projects"><div class="win">
+  <div class="win-titlebar"><span class="win-title">WORK<span class="dim">.EXE</span></span>
+  <div class="win-controls"><div class="win-btn">-</div><div class="win-btn">+</div><div class="win-btn">x</div></div></div>
+  <div class="win-body"><div class="win-label">PROJECTS</div>
+  <div class="projects-list" id="proj-list"></div>
+  </div></div></section>
+
+<section id="skills"><div class="win">
+  <div class="win-titlebar"><span class="win-title">SKILLS<span class="dim">.LST</span></span>
+  <div class="win-controls"><div class="win-btn">-</div><div class="win-btn">+</div><div class="win-btn">x</div></div></div>
+  <div class="win-body"><div class="win-label">TECH STACK</div>
+  <div class="skills-cols" id="skill-list"></div>
+  </div></div></section>
+
+<section id="reviews"><div class="win">
+  <div class="win-titlebar"><span class="win-title">REVIEWS<span class="dim">.TXT</span></span>
+  <div class="win-controls"><div class="win-btn">-</div><div class="win-btn">+</div><div class="win-btn">x</div></div></div>
+  <div class="win-body"><div class="reviews-head">
+    <div class="win-label">CLIENT TESTIMONIALS</div>
+    <button class="btn btn-outline" onclick="openReviewPopup()" style="font-size:10px;padding:10px 18px">+ LEAVE A REVIEW</button>
+  </div>
+  <div class="reviews-summary" id="review-summary"></div>
+  <div class="reviews-list" id="rev-list"></div>
+  <div class="reviews-footer">
+    <button class="reviews-toggle" id="reviews-toggle-btn" onclick="toggleReviews()" aria-label="Show more reviews" title="Show more reviews">
+      SHOW MORE
+    </button>
+  </div>
+  </div></div></section>
+
+<section id="quote"><div class="win">
+  <div class="win-titlebar"><span class="win-title">QUOTE<span class="dim">.EXE</span></span>
+  <div class="win-controls"><div class="win-btn">-</div><div class="win-btn">+</div><div class="win-btn">x</div></div></div>
+  <div class="win-body"><div class="win-label">REQUEST A QUOTE</div>
+  <form class="form" id="qform">
+    <div class="form-row2">
+      <div class="field"><label>NAME</label><input type="text" id="q-name" required placeholder="Your name"></div>
+      <div class="field"><label>DISCORD</label><input type="name" id="q-name" required placeholder="Username"></div>
+    </div>
+    <div class="form-row2">
+      <div class="field"><label>PROJECT TYPE</label><select id="q-type" required>
+        <option value="">SELECT...</option>
+        <option>Web Application</option>
+        <option>Project</option>
+        <option>Portfolio</option>
+        <option>Dashboard</option>
+        <option>Java Plugin</option>
+        <option>Skript script</option>
+        <option>Other</option>
+      </select></div>
+      <div class="field"><label>BUDGET</label><select id="q-budget">
+        <option value="">SELECT...</option>
+        <option>Under $25</option>
+        <option>$25 - $35</option>
+        <option>$40 - $50</option>
+        <option>$50 - $100</option>
+        <option>$100+</option>
+      </select></div>
+    </div>
+    <div class="field"><label>DESCRIPTION</label><textarea id="q-desc" required placeholder="Describe your project, goals and timeline..."></textarea></div>
+    <button type="submit" class="form-submit">SUBMIT REQUEST</button>
+  </form>
+  <div class="form-done" id="form-done">REQUEST RECEIVED<br><br>I WILL REVIEW YOUR PROJECT<br>AND REPLY WITHIN 24 HOURS.</div>
+  </div></div></section>
+</main>
+
+<section class="win footer-window">
+  <div class="win-titlebar">
+    <span class="win-title">FOOTER<span class="dim">.TXT</span></span>
+    <div class="win-controls"><div class="win-btn">-</div><div class="win-btn">+</div><div class="win-btn">x</div></div>
+  </div>
+  <div class="win-body footer-body">
+<footer class="footer">
+    CQT.EXE
+      &nbsp;&bull;&nbsp; <a href="https://github.com/wolfspace099">GITHUB</a>
+      &nbsp;&bull;&nbsp; <a href="#">DISCORD</a>
+      &nbsp;&bull;&nbsp; <a href="#" onclick="openTos();return false;">TOS</a>
+      <br>ALL CODE HANDCRAFTED &mdash; 2026 &copy;
+    </footer>
+  </div>
+</section>
+
+<!-- Easter egg popup -->
+<div id="easter-popup">
+  <div class="easter-win">
+    <div class="easter-bar">
+      <span class="easter-bar-title">ERROR<span style="color:#9060b0">.EXE</span></span>
+      <div class="easter-close" onclick="closeEaster()">x</div>
+    </div>
+    <div class="easter-body">
+      <p>Dipshit, you really think<br>that is <span class="acc">my password?</span></p>
+    </div>
+  </div>
+</div>
+
+<!-- Discord verify popup (shown when user clicks Submit Review) -->
+<div id="discord-verify-popup" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:3100;align-items:center;justify-content:center;padding:24px">
+  <div style="max-width:420px;width:100%;background:var(--bg2);border:4px solid var(--border);box-shadow:6px 6px 0 rgba(0,0,0,.4)">
+    <div class="win-titlebar"><span class="win-title">VERIFY<span class="dim">.EXE</span></span>
+      <div class="win-controls"><div class="win-btn" onclick="closeVerifyPopup()">x</div></div>
+    </div>
+    <div style="padding:32px;text-align:center">
+      <div style="font-size:13px;color:var(--text);letter-spacing:2px;margin-bottom:14px">NEED TO VERIFY YOUR IDENTITY</div>
+      <p style="font-size:9px;color:var(--dim);line-height:2.2;margin-bottom:28px">Log into Discord to ensure you are not a bot and verify you as a user</p>
+      <button onclick="doDiscordLogin()" style="font-family:'Press Start 2P',monospace;font-size:11px;background:#5865F2;color:#fff;border:none;padding:16px 28px;cursor:pointer;letter-spacing:1px;width:100%;box-shadow:4px 4px 0 rgba(0,0,0,.28);margin-bottom:18px">LOG IN WITH DISCORD</button>
+      <button onclick="openAnonConfirmPopup()" style="font-family:'Press Start 2P',monospace;font-size:8px;background:none;border:none;color:var(--dim);cursor:pointer;letter-spacing:1px;padding:4px;text-decoration:underline">Stay anonymous</button>
+    </div>
+  </div>
+</div>
+
+<!-- Anonymous confirm popup -->
+<div id="anon-confirm-popup" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:3200;align-items:center;justify-content:center;padding:24px">
+  <div style="max-width:440px;width:100%;background:var(--bg2);border:4px solid var(--border);box-shadow:6px 6px 0 rgba(0,0,0,.4)">
+    <div class="win-titlebar"><span class="win-title">ANONYMOUS<span class="dim">.EXE</span></span>
+      <div class="win-controls"><div class="win-btn" onclick="closeAnonConfirmPopup()">x</div></div>
+    </div>
+    <div style="padding:28px">
+      <div style="font-size:11px;color:var(--purple);letter-spacing:2px;margin-bottom:16px">// ANONYMOUS REVIEW</div>
+      <p style="font-size:9px;color:var(--dim);line-height:2.4;margin-bottom:20px">Your review will be submitted anonymously. Your name will appear as <span style="color:var(--text)">Anonymous</span> and your rank will be shown as <span style="color:var(--text)">Unknown</span>. No Discord login is needed.</p>
+      <div style="display:flex;gap:10px">
+        <button onclick="submitAnon()" style="font-family:'Press Start 2P',monospace;font-size:9px;background:var(--purple);color:var(--button-text);border:none;padding:12px 18px;cursor:pointer;flex:1">CONTINUE ANONYMOUS</button>
+        <button onclick="closeAnonConfirmPopup()" style="font-family:'Press Start 2P',monospace;font-size:9px;background:none;color:var(--dim);border:2px solid var(--border);padding:12px 18px;cursor:pointer">BACK</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Review submit popup -->
+<div id="review-popup">
+  <div class="review-popup-win">
+    <div class="win-titlebar">
+      <span class="win-title">REVIEW<span class="dim">.EXE</span></span>
+      <div class="win-controls"><div class="win-btn" onclick="closeReviewPopup()">x</div></div>
+    </div>
+    <div class="review-popup-body">
+    <div class="win-label">LEAVE A REVIEW</div>
+    <!-- Discord connected indicator -->
+    <div id="discord-connected-bar" style="display:none;background:var(--bg);border:2px solid #5865F2;padding:10px 14px;margin-bottom:16px;font-size:9px;color:#5865F2;letter-spacing:1px">âœ“ LOGGED IN AS <span id="discord-username-display" style="color:var(--text)"></span></div>
+    <form class="rform" id="rform">
+        <div class="form-row2">
+        <div class="field"><label>YOUR NAME</label><input type="text" id="r-name" required placeholder="Your name"></div>
+        <div class="field"><label>RANK</label><select id="r-rank" required>
+          <option value="">SELECT...</option>
+          <option>Client</option>
+          <option>Long-time Client</option>
+          <option>Meowtastic Client</option>
+          <option>Server Owner</option>
+          <option>Developer</option>
+          <option>Community Lead</option>
+          <option>Content Creator</option>
+          <option>VIP</option>
+        </select></div>
+      </div>
+        <div class="field">
+          <label>STAR RATING</label>
+          <div class="field-stars" id="rating-picker">
+            <button type="button" class="star-btn active" data-rating="5">5</button>
+            <button type="button" class="star-btn" data-rating="4">4</button>
+            <button type="button" class="star-btn" data-rating="3">3</button>
+            <button type="button" class="star-btn" data-rating="2">2</button>
+            <button type="button" class="star-btn" data-rating="1">1</button>
+          </div>
+          <div class="star-value" id="rating-value">5 stars</div>
+        </div>
+        <div class="field"><label>REVIEW</label><textarea id="r-text" required placeholder="Share your experience working with Cqt..."></textarea></div>
+        <button type="button" class="form-submit" id="review-submit-btn">SUBMIT REVIEW</button>
+      </form>
+      <div class="rform-done" id="rform-done">
+        REVIEW SUBMITTED!<br><br>
+        IT WILL APPEAR AFTER APPROVAL.
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- TOS popup -->
+<div id="tos-popup">
+  <div class="tos-popup-win">
+    <div class="win-titlebar">
+      <span class="win-title">TOS<span class="dim">.TXT</span></span>
+      <div class="win-controls"><div class="win-btn" onclick="closeTos()">x</div></div>
+    </div>
+    <div class="tos-popup-body">
+      <div class="win-label">SERVICE AGREEMENT</div>
+      <div class="tos-meta">
+        <div class="tos-pill">LAST UPDATED: MARCH 24, 2026</div>
+        <div class="tos-pill">OWNER: CQT.EXE</div>
+        <div class="tos-pill">STATUS: ACTIVE</div>
+      </div>
+      <div class="tos-text">
+        <div class="tos-block">
+          <h3>1. SCOPE</h3>
+          <p>These terms apply to any project, commission, quote request, review submission, or other service provided through this site or direct contact.</p>
+        </div>
+        <div class="tos-block">
+          <h3>2. WORKFLOW</h3>
+          <p>Work begins only after both sides agree on the scope. Requirements, timeline, and budget should be confirmed before development starts.</p>
+        </div>
+        <div class="tos-block">
+          <h3>3. PAYMENT</h3>
+          <p>Payment terms are negotiated per project. Deposits, milestones, and final delivery may be required depending on the size of the job.</p>
+        </div>
+        <div class="tos-block">
+          <h3>4. CHANGES</h3>
+          <p>Reasonable revisions are allowed during development. Large scope changes or extra features may require a new estimate or additional time.</p>
+        </div>
+        <div class="tos-block">
+          <h3>5. OWNERSHIP</h3>
+          <ul>
+            <li>Final deliverables belong to the client once payment is completed, unless otherwise agreed.</li>
+            <li>Reusable tools, templates, and internal methods remain the creator's property.</li>
+            <li>Public portfolio display is allowed unless the client requests otherwise.</li>
+          </ul>
+        </div>
+        <div class="tos-block">
+          <h3>6. NO WARRANTY</h3>
+          <p>Services are provided as-is. While every effort is made to deliver stable work, no guarantee is made for third-party services, hosting, or changes outside the project.</p>
+        </div>
+        <div class="tos-block">
+          <h3>7. CONTACT</h3>
+          <p>For questions, disputes, or project discussion, use the contact info on the main site or return to the homepage and submit a quote request.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Video player popup -->
+<div id="video-popup">
+  <div class="video-popup-win">
+    <div class="win-titlebar">
+      <span class="win-title">VIDEOPLAYER<span class="dim">.EXE</span></span>
+      <div class="win-controls"><div class="win-btn" onclick="closeVideoPlayer()">x</div></div>
+    </div>
+    <div class="video-popup-body">
+      <div class="win-label" id="video-title">PLAYBACK</div>
+      <div class="video-meta">
+        <div class="video-pill" id="video-source">SOURCE: NONE</div>
+        <div class="video-pill" id="video-status">STATUS: READY</div>
+      </div>
+      <div class="video-stage">
+        <video id="video-player" controls playsinline preload="metadata"></video>
+      </div>
+      <div class="video-note" id="video-note">Select a project video to begin playback.</div>
+    </div>
+  </div>
+</div>
+
+<!-- Admin overlay -->
+<div id="admin-overlay">
+  <div class="win admin-win" id="admin-login">
+  <div class="win-titlebar"><span class="win-title">ADMIN<span class="dim">.EXE</span></span>
+    <div class="win-controls"><div class="win-btn" onclick="closeAdmin()">x</div></div></div>
+    <div class="win-body" style="max-width:440px;margin:0 auto">
+      <div class="win-label">AUTHENTICATE</div>
+      <div class="field" style="margin-bottom:16px">
+        <label>EMAIL</label>
+        <input type="email" id="admin-email" placeholder="admin@email.com">
+      </div>
+      <div class="field" style="margin-bottom:16px">
+        <label>PASSWORD</label>
+        <input type="password" id="admin-pass" placeholder="Enter password...">
+      </div>
+      <div style="display:flex;gap:10px">
+        <button class="form-submit" id="login-btn" style="flex:1">LOGIN</button>
+        <button class="btn btn-outline" onclick="closeAdmin()" style="flex:1;font-size:11px">CANCEL</button>
+      </div>
+      <p id="admin-err" style="display:none;font-size:10px;color:#cc0066;margin-top:14px;letter-spacing:1px">WRONG PASSWORD</p>
+    </div>
+  </div>
+  <div class="win admin-win" id="admin-dash" style="display:none">
+    <div class="win-titlebar"><span class="win-title">DASHBOARD<span class="dim">.EXE</span></span>
+    <div class="win-controls"><div class="win-btn" onclick="closeAdmin()">x</div></div></div>
+    <div class="win-body">
+      <div class="admin-toolbar">
+        <button class="btn btn-outline" id="refresh-db-btn" style="font-size:8px;padding:11px 14px">REFRESH DB</button>
+      </div>
+      <div class="admin-stats">
+        <div class="stat-cell"><span class="n" id="s-total">0</span><span class="l">QUOTES</span></div>
+        <div class="stat-cell"><span class="n" id="s-new">0</span><span class="l">NEW</span></div>
+        <div class="stat-cell"><span class="n" id="s-rev-pending">0</span><span class="l">REVIEWS PENDING</span></div>
+      </div>
+      <div class="admin-tabs">
+        <button class="admin-tab active" onclick="switchTab('quotes')">QUOTES</button>
+        <button class="admin-tab" onclick="switchTab('reviews')">REVIEWS</button>
+      </div>
+      <div id="tab-quotes" class="admin-tab-content active" style="padding-top:20px">
+        <div class="win-label">QUOTE REQUESTS</div>
+        <div id="q-wrap"></div>
+      </div>
+      <div id="tab-reviews" class="admin-tab-content" style="padding-top:20px">
+        <div class="win-label">PENDING REVIEWS</div>
+        <div id="r-wrap"></div>
+        <div class="win-label" style="margin-top:32px">APPROVED REVIEWS</div>
+        <div id="r-approved-wrap"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
+<script src="/app/script.js"></script>
+</body>
+</html>
+
