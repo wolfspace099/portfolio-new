@@ -1,5 +1,7 @@
-var SUPABASE_URL = 'https://fbxgypfpgjapywjdnnlo.supabase.co';
-var SUPABASE_ANON_KEY = 'sb_publishable_DToJ1Q7-GG9WHyjboJTgKA_qqrIgdna';
+const { env } = require("process");
+
+var SUPABASE_URL = env.SUPABASE_URL;
+var SUPABASE_ANON_KEY = env.SUPABASE_ANON_KEY;
 var sb = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
 var PROJECTS = [
