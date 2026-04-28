@@ -1,7 +1,7 @@
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-:root{--bg:#120b18;--bg2:#1b1224;--border:#5c4a72;--purple:#b56dff;--purple2:#cc93ff;--purple3:#8f51dd;--dim:#b59bcf;--text:#f4ebff;--win-bar:#22152d;--win-bar-b:#3a2b4d;--topbar-bg:#17101f;--shadow:rgba(0,0,0,.36);--hover-bg:#261831;--bar-bg:#251832;--panel-bg:#261831;--overlay-bg:rgba(10,7,14,.95);--button-text:#120b18;--shell-text:#f4ebff;--scroll-track:#22152d;--scroll-thumb:#b56dff;--cursor-pointer:url('/cursor.png'),auto;--cursor-click:url('/click.png'),pointer}
-html,body{cursor:var(--cursor-pointer)}
-html a:hover{cursor:var(--cursor-click)}
+:root{--bg:#120b18;--bg2:#1b1224;--border:#5c4a72;--purple:#b56dff;--purple2:#cc93ff;--purple3:#8f51dd;--dim:#b59bcf;--text:#f4ebff;--win-bar:#22152d;--win-bar-b:#3a2b4d;--topbar-bg:#17101f;--shadow:rgba(0,0,0,.36);--hover-bg:#261831;--bar-bg:#251832;--panel-bg:#261831;--overlay-bg:rgba(10,7,14,.95);--button-text:#120b18;--shell-text:#f4ebff;--scroll-track:#22152d;--scroll-thumb:#b56dff;--cursor-pointer:url("/cursor.png"),auto;--cursor-click:url("/click.png"),pointer}
+html,body{cursor:url("/cursor.png"),auto}
+html a:hover{cursor:url("/click.png"),pointer}
 html,body{background:var(--bg) !important;}
 html{scroll-behavior:smooth}
 body{font-family:"Press Start 2P",monospace;color:var(--text);font-size:20px;line-height:1.8;overflow-x:hidden;zoom:1.12;}
@@ -299,3 +299,4 @@ background-size:28px 28px,56px 56px,56px 56px;background-position:0 0,0 0,0 0;op
   .star-btn{font-size:7px;padding:5px 7px}
   .win-btn{width:18px;height:18px;font-size:7px}
 }
+
