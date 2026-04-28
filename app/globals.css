@@ -3,10 +3,10 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
-  --cursor-default: url("/cursor.png") 0 0, auto;
-  --cursor-pointer: url("/click.png") 0 0, pointer;
-  --cursor-text: url("/text-select.png") 0 0, text;
-  --cursor-grab: url("/grab.png") 0 0, grab;
+  --cursor-default: url("/cursor.png?v=2") 0 0, auto;
+  --cursor-pointer: url("/click.png?v=2") 0 0, pointer;
+  --cursor-text: url("/text-select.png?v=2") 0 0, text;
+  --cursor-grab: url("/grab.png?v=2") 0 0, grab;
 }
 
 @theme inline {
