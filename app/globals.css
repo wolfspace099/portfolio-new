@@ -3,6 +3,10 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
+  --cursor-default: url("/cursor.png") 0 0, auto;
+  --cursor-pointer: url("/click.png") 0 0, pointer;
+  --cursor-text: url("/text-select.png") 0 0, text;
+  --cursor-grab: url("/grab.png") 0 0, grab;
 }
 
 @theme inline {
@@ -23,4 +27,32 @@ body {
   background: var(--background);
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
+  cursor: var(--cursor-default);
+}
+
+a,
+button,
+[role="button"],
+input[type="button"],
+input[type="submit"],
+input[type="reset"],
+select,
+summary {
+  cursor: var(--cursor-pointer) !important;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="search"],
+input[type="url"],
+input[type="tel"],
+input[type="number"],
+textarea,
+[contenteditable="true"] {
+  cursor: var(--cursor-text);
+}
+
+[draggable="true"] {
+  cursor: var(--cursor-grab);
 }
