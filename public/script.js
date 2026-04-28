@@ -3,11 +3,12 @@ var SUPABASE_ANON_KEY = 'sb_publishable_DToJ1Q7-GG9WHyjboJTgKA_qqrIgdna';
 var sb = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
 var PROJECTS = [
-  {name:'CATS CAN BLAST!',desc:'DIY project plugin for a custom lasertag minigame in MC without mods, full coded in Java, with 9 gamemodes',tags:['Java','Maven','Minecraft'],viewType:'link',link:'#quote'},
-  {name:'ELEVATOR WAND',desc:'Plugin with abilities to make standstill, moving and cabin elevators. With smooth operation, call buttons and much more, all while keeping peak performance.',tags:['Java','Maven','Minecraft'],viewType:'video',videoSrc:'https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4'}
+  {name:'CATS CAN BLAST!',desc:'DIY project plugin for a custom lasertag minigame in MC without mods, full coded in Java, with 9 gamemodes',tags:['Java','Maven','Minecraft'],viewType:'link',link:'#quote',cardLink:'#quote'},
+  {name:'ELEVATOR WAND',desc:'Plugin with abilities to make standstill, moving and cabin elevators. With smooth operation, call buttons and much more, all while keeping peak performance.',tags:['Java','Maven','Minecraft'],viewType:'video',videoSrc:'https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4'},
+  {name:'ARCANE MAGIC',desc:'A powerful spellcasting plugin for Minecraft with a wide range of magical abilities and effects.',tags:['Java','Maven','Minecraft'],viewType:'video',videoSrc:'arcane-plugin.mp4'},
+  {name:'PORTFOLIO WEBSITE',desc:'This very website you are on, built with Next.js, framework in HTML, database + auth using Supabase, showcasing my projects, skills, and client reviews.',tags:['JavaScript','CSS','HTML','Next.js','Supabase'],viewType:'link',link:'https://github.com/wolfspace099/portfolio-new/'},
 ];
 
-// FIXED: skills array was broken - second group had no wrapping object
 var SKILLS = [
   {group:'DEVELOPMENT',items:[
     {name:'JavaScript / TS',pct:95},
@@ -32,8 +33,8 @@ var SKILLS = [
 
 var BUILTIN_REVIEWS = [];
 
-var PHRASES = ['Full-Stack Developer','Certified Dev','Plugin dev','Cat food enjoyer','I like cat food'];
-var EASTER_PASS = 'admin123';
+var PHRASES = ['Full-Stack developer','Pussie lover <3','Plugin developer','Meow :3','I like cat food'];
+var EASTER_PASS = '1234';
 
 var quotes = [];
 var pendingReviews = [];
@@ -79,10 +80,10 @@ function renderProjects() {
     var p = PROJECTS[i];
     var tags = '';
     for (var t = 0; t < p.tags.length; t++) { tags += '<span class="tag">' + p.tags[t] + '</span>'; }
-    h += '<div class="proj">';
+    h += '<article class="proj proj-clickable" data-index="' + i + '" role="link" tabindex="0" aria-label="Open project ' + esc(p.name) + '">';
     h += '<div class="proj-header"><span class="proj-header-name">' + p.name + '</span></div>';
     h += '<div class="proj-body">';
-    h += '<div class="proj-name">' + p.name + '</div>';
+    h += '<div class="proj-desc-label">&gt; DESCRIPTION:</div>';
     h += '<div class="proj-desc">' + p.desc + '</div>';
     h += '<div class="proj-tags">' + tags + '</div>';
     h += '<div class="proj-links">';
@@ -92,9 +93,21 @@ function renderProjects() {
       var target = (p.link && p.link.indexOf('#') === 0) ? '' : ' target="_blank" rel="noopener noreferrer"';
       h += '<a href="' + esc(p.link || '#') + '" class="proj-link"' + target + '>[VIEW]</a>';
     }
-    h += '</div></div></div>';
+    h += '</div></div></article>';
   }
   el.innerHTML = h;
+  var cards = el.querySelectorAll('.proj-clickable');
+  for (var c = 0; c < cards.length; c++) {
+    cards[c].addEventListener('click', function(e) {
+      if (e.target.closest('.proj-link')) { return; }
+      openProjectFromCard(parseInt(this.getAttribute('data-index'), 10));
+    });
+    cards[c].addEventListener('keydown', function(e) {
+      if (e.key !== 'Enter' && e.key !== ' ') { return; }
+      e.preventDefault();
+      openProjectFromCard(parseInt(this.getAttribute('data-index'), 10));
+    });
+  }
 }
 
 function renderSkills() {
@@ -103,16 +116,31 @@ function renderSkills() {
   var h = '';
   for (var g = 0; g < SKILLS.length; g++) {
     var grp = SKILLS[g];
-    h += '<div><div class="skill-group-title">// ' + grp.group + '</div>';
+    h += '<section class="skill-group"><div class="skill-group-title">// ' + grp.group + '</div><div class="skill-cards">';
     for (var i = 0; i < grp.items.length; i++) {
       var s = grp.items[i];
-      h += '<div class="skill-item"><span class="skill-name-txt">' + s.name + '</span>';
+      h += '<article class="skill-card">';
+      h += '<span class="skill-name-txt">' + s.name + '</span>';
       h += '<span class="skill-pct">' + s.pct + '%</span>';
-      h += '<div class="skill-bar-outer"><div class="skill-bar-inner" data-pct="' + s.pct + '"></div></div></div>';
+      h += '</article>';
     }
-    h += '</div>';
+    h += '</div></section>';
   }
   el.innerHTML = h;
+}
+
+function openProjectFromCard(index) {
+  var p = PROJECTS[index];
+  if (!p) return;
+  if (p.cardLink) {
+    if (p.cardLink.charAt(0) === '#') {
+      window.location.hash = p.cardLink.slice(1);
+    } else {
+      window.open(p.cardLink, '_blank', 'noopener,noreferrer');
+    }
+    return;
+  }
+  openProjectView(index);
 }
 
 function openProjectView(index) {
@@ -216,23 +244,6 @@ function toggleReviews() {
   renderReviews();
 }
 
-function setupBars() {
-  var bars = document.querySelectorAll('.skill-bar-inner');
-  if (!window.IntersectionObserver) {
-    for (var i = 0; i < bars.length; i++) { bars[i].style.width = bars[i].getAttribute('data-pct') + '%'; }
-    return;
-  }
-  var io = new IntersectionObserver(function(entries) {
-    for (var i = 0; i < entries.length; i++) {
-      if (entries[i].isIntersecting) {
-        entries[i].target.style.width = entries[i].target.getAttribute('data-pct') + '%';
-        io.unobserve(entries[i].target);
-      }
-    }
-  }, {threshold: 0.2});
-  for (var i = 0; i < bars.length; i++) { io.observe(bars[i]); }
-}
-
 async function loadData() {
   var qRes = await sb.from('quotes').select('*').order('created_at', { ascending: false });
   var rRes = await sb.from('reviews').select('*').order('created_at', { ascending: false });
@@ -259,7 +270,6 @@ function findReviewById(id) {
   return null;
 }
 
-// ---- popup functions must be global for onclick= attributes ----
 function openReviewPopup() {
   document.getElementById('review-popup').classList.add('show');
   document.getElementById('rform').style.display = 'flex';
@@ -284,10 +294,12 @@ function openTos() {
 function closeTos() {
   document.getElementById('tos-popup').classList.remove('show');
 }
-// Discord state
-var discordUser = null; // { id, username } or null
+var discordUser = null;
 var REVIEW_DRAFT_KEY = 'review_draft_v1';
 var REVIEW_OAUTH_PENDING_KEY = 'review_oauth_pending_v1';
+var QUOTE_DRAFT_KEY = 'quote_draft_v1';
+var QUOTE_OAUTH_PENDING_KEY = 'quote_oauth_pending_v1';
+var verifyContext = 'review';
 
 function getDiscordNameFromUser(user) {
   var md = (user && user.user_metadata) || {};
@@ -317,6 +329,36 @@ function saveReviewDraft() {
   sessionStorage.setItem(REVIEW_DRAFT_KEY, JSON.stringify(draft));
 }
 
+function saveQuoteDraft() {
+  var draft = {
+    name: (document.getElementById('q-name').value || '').trim(),
+    type: document.getElementById('q-type').value || '',
+    budget: document.getElementById('q-budget').value || '',
+    desc: (document.getElementById('q-desc').value || '').trim()
+  };
+  sessionStorage.setItem(QUOTE_DRAFT_KEY, JSON.stringify(draft));
+}
+
+function restoreQuoteDraft() {
+  var raw = sessionStorage.getItem(QUOTE_DRAFT_KEY);
+  if (!raw) return false;
+  try {
+    var draft = JSON.parse(raw);
+    if (draft.name !== undefined) { document.getElementById('q-name').value = draft.name; }
+    if (draft.type !== undefined) { document.getElementById('q-type').value = draft.type; }
+    if (draft.budget !== undefined) { document.getElementById('q-budget').value = draft.budget; }
+    if (draft.desc !== undefined) { document.getElementById('q-desc').value = draft.desc; }
+    return true;
+  } catch (_) {
+    return false;
+  }
+}
+
+function clearQuoteDraft() {
+  sessionStorage.removeItem(QUOTE_DRAFT_KEY);
+  sessionStorage.removeItem(QUOTE_OAUTH_PENDING_KEY);
+}
+
 function restoreReviewDraft() {
   var raw = sessionStorage.getItem(REVIEW_DRAFT_KEY);
   if (!raw) return false;
@@ -343,6 +385,17 @@ function applyDiscordConnectedUI() {
   document.getElementById('discord-username-display').textContent = '@' + discordUser.username;
   var nameInput = document.getElementById('r-name');
   if (nameInput && !nameInput.value) { nameInput.value = discordUser.username; }
+  syncQuoteDiscordField();
+}
+
+function syncQuoteDiscordField() {
+  var qDiscord = document.getElementById('q-discord');
+  if (!qDiscord) return;
+  if (discordUser) {
+    qDiscord.value = '@' + discordUser.username;
+  } else {
+    qDiscord.value = '';
+  }
 }
 
 async function hydrateDiscordFromSupabase() {
@@ -350,7 +403,8 @@ async function hydrateDiscordFromSupabase() {
   var session = res && res.data ? res.data.session : null;
   if (!session || !session.user) { return; }
   var user = session.user;
-  var pendingOauth = sessionStorage.getItem(REVIEW_OAUTH_PENDING_KEY) === '1';
+  var pendingReviewOauth = sessionStorage.getItem(REVIEW_OAUTH_PENDING_KEY) === '1';
+  var pendingQuoteOauth = sessionStorage.getItem(QUOTE_OAUTH_PENDING_KEY) === '1';
   var provider = (user.app_metadata && user.app_metadata.provider) || '';
   var ids = user.identities || [];
   var md = user.user_metadata || {};
@@ -360,9 +414,10 @@ async function hydrateDiscordFromSupabase() {
       if (ids[i] && ids[i].provider === 'discord') { hasDiscordIdentity = true; break; }
     }
   }
-  if (!hasDiscordIdentity && !pendingOauth) { return; }
+  if (!hasDiscordIdentity && !pendingReviewOauth && !pendingQuoteOauth) { return; }
   discordUser = { id: getDiscordIdFromUser(user) || user.id, username: getDiscordNameFromUser(user) };
-  if (pendingOauth) {
+  syncQuoteDiscordField();
+  if (pendingReviewOauth) {
     openReviewPopup();
     restoreReviewDraft();
     applyDiscordConnectedUI();
@@ -376,10 +431,29 @@ async function hydrateDiscordFromSupabase() {
     }
     sessionStorage.removeItem(REVIEW_OAUTH_PENDING_KEY);
   }
+  if (pendingQuoteOauth) {
+    restoreQuoteDraft();
+    sessionStorage.removeItem(QUOTE_OAUTH_PENDING_KEY);
+    closeVerifyPopup();
+    submitQuoteWithDiscord();
+  }
 }
 
-function openVerifyPopup() {
+function openVerifyPopup(context) {
+  verifyContext = context || 'review';
   var p = document.getElementById('discord-verify-popup');
+  var title = document.getElementById('verify-title-text');
+  var desc = document.getElementById('verify-desc-text');
+  var anon = document.getElementById('verify-anon-btn');
+  if (verifyContext === 'quote') {
+    if (title) { title.textContent = 'DISCORD REQUIRED FOR QUOTES'; }
+    if (desc) { desc.textContent = 'Log in with Discord to submit a quote request.'; }
+    if (anon) { anon.style.display = 'none'; }
+  } else {
+    if (title) { title.textContent = 'NEED TO VERIFY YOUR IDENTITY'; }
+    if (desc) { desc.textContent = 'Log into Discord to ensure you are not a bot and verify you as a user'; }
+    if (anon) { anon.style.display = 'inline-block'; }
+  }
   p.style.display = 'flex';
 }
 function closeVerifyPopup() {
@@ -397,8 +471,13 @@ function closeAnonConfirmPopup() {
 }
 
 function doDiscordLogin() {
-  saveReviewDraft();
-  sessionStorage.setItem(REVIEW_OAUTH_PENDING_KEY, '1');
+  if (verifyContext === 'quote') {
+    saveQuoteDraft();
+    sessionStorage.setItem(QUOTE_OAUTH_PENDING_KEY, '1');
+  } else {
+    saveReviewDraft();
+    sessionStorage.setItem(REVIEW_OAUTH_PENDING_KEY, '1');
+  }
   sb.auth.signInWithOAuth({
     provider: 'discord',
     options: {
@@ -409,6 +488,7 @@ function doDiscordLogin() {
     if (res.error) { throw res.error; }
   }).catch(function(err) {
     sessionStorage.removeItem(REVIEW_OAUTH_PENDING_KEY);
+    sessionStorage.removeItem(QUOTE_OAUTH_PENDING_KEY);
     alert('Discord login failed: ' + formatErrorMessage(err, 'Try again.'));
   });
 }
@@ -474,7 +554,44 @@ function saveReviewUpdate(id, payload) {
     return res;
   });
 }
-// ----------------------------------------------------------------
+
+function submitQuoteWithDiscord() {
+  var nameEl = document.getElementById('q-name');
+  var typeEl = document.getElementById('q-type');
+  var budgetEl = document.getElementById('q-budget');
+  var descEl = document.getElementById('q-desc');
+  var formEl = document.getElementById('qform');
+  var doneEl = document.getElementById('form-done');
+  if (!nameEl || !typeEl || !descEl || !formEl || !doneEl) { return; }
+
+  var nameVal = (nameEl.value || '').trim();
+  var typeVal = typeEl.value || '';
+  var descVal = (descEl.value || '').trim();
+  if (!nameVal || !typeVal || !descVal) {
+    alert('Please fill in all quote fields.');
+    return;
+  }
+  if (!discordUser || !discordUser.username) {
+    openVerifyPopup('quote');
+    return;
+  }
+
+  sb.from('quotes').insert([{
+    name: nameVal,
+    email: '@' + discordUser.username,
+    type: typeVal,
+    budget: (budgetEl && budgetEl.value) ? budgetEl.value : 'Not specified',
+    description: descVal,
+    date: makeDate(),
+    status: 'new'
+  }]).then(async function(res) {
+    if (res.error) { alert(res.error.message); return; }
+    clearQuoteDraft();
+    await refreshAll();
+    formEl.style.display = 'none';
+    doneEl.style.display = 'block';
+  });
+}
 
 document.addEventListener('DOMContentLoaded', function() {
   initApp();
@@ -497,23 +614,14 @@ async function initApp() {
     hydrateDiscordFromSupabase().catch(function() {});
   });
 
-// Quote form
 document.getElementById('qform').addEventListener('submit', function(e) {
   e.preventDefault();
-  sb.from('quotes').insert([{
-    name: document.getElementById('q-name').value,
-    email: document.getElementById('q-email').value,
-    type: document.getElementById('q-type').value,
-    budget: document.getElementById('q-budget').value || 'Not specified',
-    description: document.getElementById('q-desc').value,
-    date: makeDate(),
-    status: 'new'
-  }]).then(async function(res) {
-    if (res.error) { alert(res.error.message); return; }
-    await refreshAll();
-    document.getElementById('qform').style.display = 'none';
-    document.getElementById('form-done').style.display = 'block';
-  });
+  saveQuoteDraft();
+  if (!discordUser) {
+    openVerifyPopup('quote');
+    return;
+  }
+  submitQuoteWithDiscord();
 });
 
 var ratingPicker = document.getElementById('rating-picker');
@@ -525,7 +633,6 @@ if (ratingPicker) {
   });
 }
 
-// Review form — submit button now shows verify popup
 document.getElementById('review-submit-btn').addEventListener('click', function() {
   var nameVal = document.getElementById('r-name').value.trim();
   var rankVal = document.getElementById('r-rank').value;
@@ -539,10 +646,9 @@ document.getElementById('review-submit-btn').addEventListener('click', function(
     doFinalSubmit(false);
     return;
   }
-  openVerifyPopup();
+  openVerifyPopup('review');
 });
 
-// Admin listeners
 document.getElementById('login-btn').addEventListener('click', function() { checkAdmin(); });
 document.getElementById('admin-pass').addEventListener('keydown', function(e) { if (e.key === 'Enter') { checkAdmin(); } });
 document.getElementById('admin-email').addEventListener('keydown', function(e) { if (e.key === 'Enter') { checkAdmin(); } });
@@ -550,8 +656,8 @@ document.getElementById('refresh-db-btn').addEventListener('click', function() {
 
 renderProjects();
 renderSkills();
+animateHeroAsciiLines();
 tick();
-setupBars();
 
 } // end initApp
 
@@ -631,7 +737,7 @@ function renderQuotesTable() {
     rows += '<button class="tbl-btn del-btn" data-id="' + q.id + '">DEL</button></td></tr>';
   }
   wrap.innerHTML = '<div style="overflow-x:auto"><table class="q-table"><thead><tr>'
-    + '<th>DATE</th><th>NAME</th><th>EMAIL</th><th>TYPE</th><th>STATUS</th><th>ACTIONS</th>'
+    + '<th>DATE</th><th>NAME</th><th>DISCORD</th><th>TYPE</th><th>STATUS</th><th>ACTIONS</th>'
     + '</tr></thead><tbody>' + rows + '</tbody></table></div>';
   var viewBtns = document.querySelectorAll('.view-btn');
   for (var i = 0; i < viewBtns.length; i++) {
@@ -644,7 +750,6 @@ function renderQuotesTable() {
 }
 
 function renderReviewsTable() {
-  // Pending
   var wrap = document.getElementById('r-wrap');
   if (!pendingReviews.length) {
     wrap.innerHTML = '<p class="empty">NO PENDING REVIEWS</p>';
@@ -684,7 +789,6 @@ function renderReviewsTable() {
     }
   }
 
-  // Approved
   var awrap = document.getElementById('r-approved-wrap');
   if (!approvedReviews.length) {
     awrap.innerHTML = '<p class="empty">NO APPROVED REVIEWS</p>';
@@ -826,7 +930,6 @@ function delQ(id) {
   sb.from('quotes').delete().eq('id', id).then(function() { refreshAll(); });
 }
 
-// Typing animation
 var pi = 0; var ci = 0; var going_back = false;
 function tick() {
   var phrase = PHRASES[pi];
@@ -842,6 +945,31 @@ function tick() {
     if (ci === 0) { going_back = false; pi = (pi + 1) % PHRASES.length; }
   }
   setTimeout(tick, going_back ? 55 : 95);
+}
+
+function animateHeroAsciiLines() {
+  var el = document.querySelector('.hero-ascii');
+  if (!el) return;
+  var full = (el.textContent || '').replace(/\r/g, '');
+  if (!full.trim()) return;
+
+  if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    return;
+  }
+
+  var lines = full.split('\n');
+  var lineHeight = parseFloat(window.getComputedStyle(el).lineHeight) || 16;
+  el.style.minHeight = (lineHeight * lines.length) + 'px';
+  el.textContent = '';
+
+  var i = 0;
+  function reveal() {
+    if (i >= lines.length) return;
+    el.textContent += (i === 0 ? '' : '\n') + lines[i];
+    i++;
+    setTimeout(reveal, 140);
+  }
+  reveal();
 }
 
 document.addEventListener('keydown', function(e) {
