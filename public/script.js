@@ -1,3 +1,5 @@
+// ─── NO Supabase keys here. All DB operations go through /api/* routes. ───────
+
 var PROJECTS = [
   {name:'CATS CAN BLAST!',desc:'DIY project plugin for a custom lasertag minigame in MC without mods, full coded in Java, with 9 gamemodes',tags:['Java','Maven','Minecraft'],viewType:'link',link:'#quote',cardLink:'#quote'},
   {name:'ELEVATOR WAND',desc:'Plugin with abilities to make standstill, moving and cabin elevators. With smooth operation, call buttons and much more, all while keeping peak performance.',tags:['Java','Maven','Minecraft'],viewType:'video',videoSrc:'https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4'},
@@ -47,24 +49,34 @@ var verifyContext = 'review';
 
 // ─── API helpers ──────────────────────────────────────────────────────────────
 
-function _headers() {
+function _headers(extra) {
   var h = { 'Content-Type': 'application/json' };
   if (currentAdminToken) { h['Authorization'] = 'Bearer ' + currentAdminToken; }
+  if (extra) { for (var k in extra) { h[k] = extra[k]; } }
   return h;
 }
-function apiGet(path) {
-  return fetch(path, { headers: _headers() }).then(function(r) { return r.json(); });
+
+async function _safeJson(res) {
+  var text = await res.text();
+  try { return JSON.parse(text); }
+  catch(e) { return { error: 'Server error (' + res.status + '). Check your .env.local has SUPABASE_URL and SUPABASE_SERVICE_KEY set.' }; }
 }
-function apiPost(path, body, extraHeaders) {
-  var h = _headers();
-  if (extraHeaders) { for (var k in extraHeaders) { h[k] = extraHeaders[k]; } }
-  return fetch(path, { method: 'POST', headers: h, body: JSON.stringify(body) }).then(function(r) { return r.json(); });
+
+async function apiGet(path) {
+  var res = await fetch(path, { headers: _headers() });
+  return _safeJson(res);
 }
-function apiPatch(path, body) {
-  return fetch(path, { method: 'PATCH', headers: _headers(), body: JSON.stringify(body) }).then(function(r) { return r.json(); });
+async function apiPost(path, body, extraHeaders) {
+  var res = await fetch(path, { method: 'POST', headers: _headers(extraHeaders), body: JSON.stringify(body) });
+  return _safeJson(res);
 }
-function apiDelete(path, body) {
-  return fetch(path, { method: 'DELETE', headers: _headers(), body: JSON.stringify(body) }).then(function(r) { return r.json(); });
+async function apiPatch(path, body) {
+  var res = await fetch(path, { method: 'PATCH', headers: _headers(), body: JSON.stringify(body) });
+  return _safeJson(res);
+}
+async function apiDelete(path, body) {
+  var res = await fetch(path, { method: 'DELETE', headers: _headers(), body: JSON.stringify(body) });
+  return _safeJson(res);
 }
 
 // ─── Utilities ────────────────────────────────────────────────────────────────
@@ -237,13 +249,13 @@ function toggleReviews() { reviewsExpanded = !reviewsExpanded; renderReviews(); 
 
 async function loadData() {
   var res = await apiGet('/api/reviews');
-  if (res.error) { throw new Error('Reviews load failed: ' + res.error); }
+  if (res.error) { throw new Error(res.error); }
   approvedReviews = res.reviews || [];
 }
 
 async function loadAdminData() {
   var res = await apiGet('/api/admin');
-  if (res.error) { throw new Error('Admin data failed: ' + res.error); }
+  if (res.error) { throw new Error(res.error); }
   quotes = res.quotes || [];
   var all = res.reviews || [];
   pendingReviews  = all.filter(function(r) { return r.status !== 'approved'; });
@@ -256,7 +268,7 @@ async function refreshAll() {
   if (currentAdminToken) { renderDash(); }
 }
 
-// ─── Discord OAuth (anon key stays — it is public by design) ─────────────────
+// ─── Discord OAuth ────────────────────────────────────────────────────────────
 
 function getDiscordNameFromUser(user) {
   var md = (user && user.user_metadata) || {};
@@ -273,7 +285,7 @@ function getDiscordIdFromUser(user) {
 }
 
 async function hydrateDiscordFromSupabase() {
-  if (typeof supabase === 'undefined') { return; }
+  if (typeof supabase === 'undefined' || !supabase) { return; }
   var res = await supabase.auth.getSession();
   var session = res && res.data ? res.data.session : null;
   if (!session || !session.user) { return; }
@@ -306,6 +318,10 @@ async function hydrateDiscordFromSupabase() {
 }
 
 function doDiscordLogin() {
+  if (typeof supabase === 'undefined' || !supabase) {
+    alert('Supabase not initialised. Check that SUPABASE_URL and SUPABASE_ANON_KEY are set in .env.local and restart the dev server.');
+    return;
+  }
   if (verifyContext === 'quote') { saveQuoteDraft(); sessionStorage.setItem(QUOTE_OAUTH_PENDING_KEY, '1'); }
   else { saveReviewDraft(); sessionStorage.setItem(REVIEW_OAUTH_PENDING_KEY, '1'); }
   supabase.auth.signInWithOAuth({
@@ -426,22 +442,31 @@ function submitAnon() {
 }
 
 async function doFinalSubmit(isAnon) {
-  var payload = {
-    name:   isAnon ? 'Anonymous' : document.getElementById('r-name').value,
-    rank:   isAnon ? 'Unknown'   : (document.getElementById('r-rank').value || 'Client'),
-    text:   document.getElementById('r-text').value,
-    rating: reviewRating,
-  };
-  if (!isAnon && discordUser) { payload.discord_id = discordUser.id; payload.discord_username = discordUser.username; }
-  var extraHeaders = {};
-  if (!isAnon && _discordSessionToken) { extraHeaders['Authorization'] = 'Bearer ' + _discordSessionToken; }
-  var res = await apiPost('/api/reviews', payload, extraHeaders);
-  if (res.error) { alert(res.error); return; }
-  clearReviewDraft();
-  document.getElementById('rform').style.display = 'none';
-  document.getElementById('rform-done').style.display = 'block';
-  await refreshAll();
-  setTimeout(closeReviewPopup, 2200);
+  var submitBtn = document.getElementById('review-submit-btn');
+  if (submitBtn) { submitBtn.disabled = true; submitBtn.textContent = 'SUBMITTING...'; }
+  try {
+    var payload = {
+      name:   isAnon ? 'Anonymous' : document.getElementById('r-name').value,
+      rank:   isAnon ? 'Unknown'   : (document.getElementById('r-rank').value || 'Client'),
+      text:   document.getElementById('r-text').value,
+      rating: reviewRating,
+    };
+    if (!isAnon && discordUser) { payload.discord_id = discordUser.id; payload.discord_username = discordUser.username; }
+    var extraHeaders = {};
+    if (!isAnon && _discordSessionToken) { extraHeaders['Authorization'] = 'Bearer ' + _discordSessionToken; }
+    var res = await apiPost('/api/reviews', payload, extraHeaders);
+    if (res.error) { alert('Submit failed: ' + res.error); return; }
+    clearReviewDraft();
+    document.getElementById('rform').style.display = 'none';
+    document.getElementById('rform-done').style.display = 'block';
+    await refreshAll();
+    setTimeout(closeReviewPopup, 2200);
+  } catch(e) {
+    alert('Submit failed: ' + formatErrorMessage(e, 'Unknown error. Check the console.'));
+    console.error(e);
+  } finally {
+    if (submitBtn) { submitBtn.disabled = false; submitBtn.textContent = 'SUBMIT REVIEW'; }
+  }
 }
 
 async function submitQuoteWithDiscord() {
@@ -457,19 +482,28 @@ async function submitQuoteWithDiscord() {
   var descVal = (descEl.value || '').trim();
   if (!nameVal || !typeVal || !descVal) { alert('Please fill in all quote fields.'); return; }
   if (!discordUser || !discordUser.username) { openVerifyPopup('quote'); return; }
-  var extraHeaders = {};
-  if (_discordSessionToken) { extraHeaders['Authorization'] = 'Bearer ' + _discordSessionToken; }
-  var res = await apiPost('/api/quotes', {
-    name: nameVal, type: typeVal,
-    budget: (budgetEl && budgetEl.value) ? budgetEl.value : 'Not specified',
-    description: descVal,
-    discord_username: discordUser.username,
-  }, extraHeaders);
-  if (res.error) { alert(res.error); return; }
-  clearQuoteDraft();
-  await refreshAll();
-  formEl.style.display = 'none';
-  doneEl.style.display = 'block';
+  var submitBtn = formEl.querySelector('button[type="submit"]');
+  if (submitBtn) { submitBtn.disabled = true; submitBtn.textContent = 'SUBMITTING...'; }
+  try {
+    var extraHeaders = {};
+    if (_discordSessionToken) { extraHeaders['Authorization'] = 'Bearer ' + _discordSessionToken; }
+    var res = await apiPost('/api/quotes', {
+      name: nameVal, type: typeVal,
+      budget: (budgetEl && budgetEl.value) ? budgetEl.value : 'Not specified',
+      description: descVal,
+      discord_username: discordUser.username,
+    }, extraHeaders);
+    if (res.error) { alert('Submit failed: ' + res.error); return; }
+    clearQuoteDraft();
+    await refreshAll();
+    formEl.style.display = 'none';
+    doneEl.style.display = 'block';
+  } catch(e) {
+    alert('Submit failed: ' + formatErrorMessage(e, 'Unknown error. Check the console.'));
+    console.error(e);
+  } finally {
+    if (submitBtn) { submitBtn.disabled = false; submitBtn.textContent = 'SUBMIT REQUEST'; }
+  }
 }
 
 // ─── App init ─────────────────────────────────────────────────────────────────
@@ -477,22 +511,13 @@ async function submitQuoteWithDiscord() {
 document.addEventListener('DOMContentLoaded', function() { initApp(); });
 
 async function initApp() {
-  // Render static content immediately — never block on API
+  // Render static content immediately — never block on API calls
   renderProjects();
   renderSkills();
   animateHeroAsciiLines();
   tick();
 
-  try { await refreshAll(); } catch(e) { console.error('Load failed:', e); }
-  try { await hydrateDiscordFromSupabase(); } catch(e) { console.error(e); }
-
-  if (typeof supabase !== 'undefined') {
-    supabase.auth.onAuthStateChange(function(event, session) {
-      if (!session || !session.user) { return; }
-      hydrateDiscordFromSupabase().catch(function(){});
-    });
-  }
-
+  // Wire up all event listeners before any async work
   document.getElementById('qform').addEventListener('submit', function(e) {
     e.preventDefault(); saveQuoteDraft();
     if (!discordUser) { openVerifyPopup('quote'); return; }
@@ -522,6 +547,22 @@ async function initApp() {
   document.getElementById('admin-pass').addEventListener('keydown', function(e) { if (e.key === 'Enter') { checkAdmin(); } });
   document.getElementById('admin-email').addEventListener('keydown', function(e) { if (e.key === 'Enter') { checkAdmin(); } });
   document.getElementById('refresh-db-btn').addEventListener('click', function() { refreshAll(); });
+
+  // Load reviews from API — failure is non-fatal
+  try { await refreshAll(); } catch(e) {
+    console.error('Failed to load reviews:', e);
+    document.getElementById('rev-list').innerHTML = '<p class="empty" style="color:#d0d0d0">COULD NOT LOAD REVIEWS — CHECK SERVER LOGS</p>';
+  }
+
+  // Hydrate Discord session — failure is non-fatal
+  try { await hydrateDiscordFromSupabase(); } catch(e) { console.error('Discord hydration failed:', e); }
+
+  if (typeof supabase !== 'undefined' && supabase) {
+    supabase.auth.onAuthStateChange(function(event, session) {
+      if (!session || !session.user) { return; }
+      hydrateDiscordFromSupabase().catch(function(){});
+    });
+  }
 }
 
 function setReviewRating(value) {
@@ -550,21 +591,34 @@ function openEaster() { closeAdmin(); document.getElementById('easter-popup').cl
 function closeEaster() { document.getElementById('easter-popup').classList.remove('show'); }
 
 async function checkAdmin() {
+  var loginBtn = document.getElementById('login-btn');
+  var errEl    = document.getElementById('admin-err');
   var email    = document.getElementById('admin-email').value;
   var password = document.getElementById('admin-pass').value;
-  // All logic — including easter egg check — is handled server-side
-  var res = await apiPost('/api/auth', { email: email, password: password });
-  if (res.easter) { document.getElementById('admin-pass').value = ''; openEaster(); return; }
-  if (res.error || !res.token) {
-    document.getElementById('admin-err').style.display = 'block';
-    document.getElementById('admin-pass').value = '';
-    return;
+  if (!email || !password) { errEl.textContent = 'ENTER EMAIL AND PASSWORD'; errEl.style.display = 'block'; return; }
+  loginBtn.disabled = true; loginBtn.textContent = 'CHECKING...';
+  errEl.style.display = 'none';
+  try {
+    var res = await apiPost('/api/auth', { email: email, password: password });
+    if (res.easter) { document.getElementById('admin-pass').value = ''; openEaster(); return; }
+    if (res.error || !res.token) {
+      errEl.textContent = res.error ? res.error.toUpperCase() : 'WRONG PASSWORD';
+      errEl.style.display = 'block';
+      document.getElementById('admin-pass').value = '';
+      return;
+    }
+    currentAdminToken = res.token;
+    document.getElementById('admin-login').style.display = 'none';
+    document.getElementById('admin-dash').style.display = 'block';
+    await refreshAll();
+    renderDash();
+  } catch(e) {
+    errEl.textContent = 'ERROR: ' + formatErrorMessage(e, 'Check server logs');
+    errEl.style.display = 'block';
+    console.error(e);
+  } finally {
+    loginBtn.disabled = false; loginBtn.textContent = 'LOGIN';
   }
-  currentAdminToken = res.token;  // JWT in memory only — never persisted
-  document.getElementById('admin-login').style.display = 'none';
-  document.getElementById('admin-dash').style.display = 'block';
-  await refreshAll();
-  renderDash();
 }
 
 function switchTab(tab) {
@@ -670,7 +724,7 @@ function openReviewEditor(id) {
   inner += dfield('NAME',   '<input id="re-name"   type="text" value="' + esc(r.name) + '" style="width:100%;font-family:inherit;font-size:10px;border:none;background:transparent;outline:none">');
   inner += dfield('RANK',   '<select id="re-rank"   style="width:100%;font-family:inherit;font-size:10px;border:none;background:transparent;outline:none">' + rankOpts + '</select>');
   inner += dfield('RATING', '<select id="re-rating" style="width:100%;font-family:inherit;font-size:10px;border:none;background:transparent;outline:none">' + ratingOpts + '</select>');
-  inner += dfield('STATUS', '<select id="re-status" style="width:100%;font-family:inherit;font-size:10px;border:none;background:transparent;outline:none"><option' + (statusValue==='pending'?'selected':'') + '>pending</option><option' + (statusValue==='approved'?' selected':'') + '>approved</option></select>');
+  inner += dfield('STATUS', '<select id="re-status" style="width:100%;font-family:inherit;font-size:10px;border:none;background:transparent;outline:none"><option' + (statusValue==='pending'?' selected':'') + '>pending</option><option' + (statusValue==='approved'?' selected':'') + '>approved</option></select>');
   inner += dfield('REVIEW', '<textarea id="re-text" style="width:100%;min-height:160px;font-family:inherit;font-size:10px;border:none;background:transparent;outline:none;resize:vertical">' + esc(r.text) + '</textarea>');
   inner += '<div style="display:flex;gap:10px;margin-top:20px"><button class="tbl-btn tbl-btn-approve" id="re-save">SAVE</button><button class="tbl-btn" id="re-cancel">CANCEL</button></div>';
   inner += '</div></div>';
