@@ -1,5 +1,3 @@
-// ─── NO Supabase keys here. All DB operations go through /api/* routes. ───────
-
 var PROJECTS = [
   {name:'CATS CAN BLAST!',desc:'DIY project plugin for a custom lasertag minigame in MC without mods, full coded in Java, with 9 gamemodes',tags:['Java','Maven','Minecraft'],viewType:'link',link:'#quote',cardLink:'#quote'},
   {name:'ELEVATOR WAND',desc:'Plugin with abilities to make standstill, moving and cabin elevators. With smooth operation, call buttons and much more, all while keeping peak performance.',tags:['Java','Maven','Minecraft'],viewType:'video',videoSrc:'https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4'},
@@ -479,8 +477,15 @@ async function submitQuoteWithDiscord() {
 document.addEventListener('DOMContentLoaded', function() { initApp(); });
 
 async function initApp() {
-  try { await refreshAll(); } catch(e) { console.error(e); alert('Load failed: ' + formatErrorMessage(e)); }
+  // Render static content immediately — never block on API
+  renderProjects();
+  renderSkills();
+  animateHeroAsciiLines();
+  tick();
+
+  try { await refreshAll(); } catch(e) { console.error('Load failed:', e); }
   try { await hydrateDiscordFromSupabase(); } catch(e) { console.error(e); }
+
   if (typeof supabase !== 'undefined') {
     supabase.auth.onAuthStateChange(function(event, session) {
       if (!session || !session.user) { return; }
@@ -517,11 +522,6 @@ async function initApp() {
   document.getElementById('admin-pass').addEventListener('keydown', function(e) { if (e.key === 'Enter') { checkAdmin(); } });
   document.getElementById('admin-email').addEventListener('keydown', function(e) { if (e.key === 'Enter') { checkAdmin(); } });
   document.getElementById('refresh-db-btn').addEventListener('click', function() { refreshAll(); });
-
-  renderProjects();
-  renderSkills();
-  animateHeroAsciiLines();
-  tick();
 }
 
 function setReviewRating(value) {
