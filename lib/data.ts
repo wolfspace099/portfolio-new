@@ -100,7 +100,7 @@ export type ServicePackage = {
 export const PACKAGES: Record<string, ServicePackage[]> = {
   minecraft: [
     { id: 'mc-starter', name: 'STARTER', desc: 'Single-feature plugin, clean delivery', price: '$25–$35', features: ['1 core feature', 'Basic config file', 'Bug-fix support'] },
-    { id: 'mc-pro', name: 'PRO', desc: 'Multi-system plugin with custom gameplay', price: '$50–$100', features: ['Multiple systems', 'Custom config', 'Full support', 'Skript or Java'] },
+    { id: 'mc-pro', name: 'PRO', desc: 'Multi-system plugin with custom gameplay', price: '$50–$200', features: ['Multiple systems', 'Custom config', 'Full support', 'Skript or Java'] },
     { id: 'mc-custom', name: 'CUSTOM', desc: 'Large-scale — priced after scoping', price: 'QUOTE', features: ['Any complexity', 'Full scope discussion', 'Price confirmed after spec'] },
   ],
   web: [

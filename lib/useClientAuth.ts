@@ -38,22 +38,28 @@ export function useClientAuth() {
 
   async function signIn(email: string, password: string): Promise<{ error?: string }> {
     const sb = getSupabaseBrowser();
-    if (!sb) return { error: 'Not available' };
-    const { error } = await sb.auth.signInWithPassword({ email, password });
-    if (error) return { error: error.message };
-    await hydrate();
+    if (!sb) return { error: 'SUPABASE NOT CONFIGURED — CHECK NEXT_PUBLIC_SUPABASE_ANON_KEY' };
+    const { data, error } = await sb.auth.signInWithPassword({ email, password });
+    if (error) {
+      if (error.message.toLowerCase().includes('not confirmed')) {
+        return { error: 'CHECK YOUR EMAIL TO CONFIRM YOUR ACCOUNT, THEN TRY AGAIN.' };
+      }
+      return { error: error.message.toUpperCase() };
+    }
+    if (data?.session) await hydrate();
     return {};
   }
 
-  async function signUp(email: string, password: string, name: string): Promise<{ error?: string }> {
+  async function signUp(email: string, password: string, name: string): Promise<{ error?: string; confirm?: true }> {
     const sb = getSupabaseBrowser();
-    if (!sb) return { error: 'Not available' };
-    const { error } = await sb.auth.signUp({ email, password, options: { data: { full_name: name } } });
-    if (error) return { error: error.message };
-    const { error: signInErr } = await sb.auth.signInWithPassword({ email, password });
-    if (signInErr) return { error: 'REGISTERED — CHECK EMAIL TO CONFIRM, THEN LOG IN.' };
-    await hydrate();
-    return {};
+    if (!sb) return { error: 'SUPABASE NOT CONFIGURED — CHECK NEXT_PUBLIC_SUPABASE_ANON_KEY' };
+    const { data, error } = await sb.auth.signUp({ email, password, options: { data: { full_name: name } } });
+    if (error) return { error: error.message.toUpperCase() };
+    if (data?.session) {
+      await hydrate();
+      return {};
+    }
+    return { confirm: true };
   }
 
   async function signOut() {

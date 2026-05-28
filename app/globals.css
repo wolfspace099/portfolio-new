@@ -334,12 +334,18 @@ body::before{content:"";position:fixed;inset:0;background-image:radial-gradient(
 .hero-tag.visible{opacity:1;transform:none}
 .hero-tag:hover{border-color:var(--accent);color:var(--accent)}
 
-/* ── Client Auth Modal ── */
 .auth-backdrop{position:fixed;inset:0;background:rgba(0,0,0,.7);display:flex;align-items:center;justify-content:center;z-index:900}
 .auth-win{width:100%;max-width:420px}
 .auth-switch-btn{font-family:"Press Start 2P",monospace;font-size:9px;background:none;border:none;color:var(--purple3);cursor:pointer;padding:0;letter-spacing:1px;display:block}
+.auth-field{margin-bottom:16px}
+.auth-field-last{margin-bottom:20px}
+.auth-submit{width:100%;margin-bottom:12px}
+.auth-err{margin-top:12px}
+.auth-notice{border:2px solid var(--accent);padding:12px;font-size:9px;color:var(--accent);line-height:2;margin-bottom:16px}
 
-/* ── Order Flow ── */
+.qf-field{margin-bottom:18px}
+
+/* Order Flow */
 .order-flow{display:flex;flex-direction:column;gap:32px}
 .order-progress{display:flex;gap:0;margin-bottom:8px;border-bottom:2px solid var(--border);padding-bottom:20px}
 .order-step-dot{display:flex;flex-direction:column;align-items:center;gap:8px;flex:1;position:relative;opacity:.4}
@@ -383,6 +389,9 @@ body::before{content:"";position:fixed;inset:0;background-image:radial-gradient(
 .order-done{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:300px;gap:20px}
 .order-done-title{font-size:14px;color:var(--accent);letter-spacing:2px}
 .order-done-sub{font-size:10px;color:var(--dim)}
+.of-field{margin-bottom:20px}
+.of-subfield{margin-bottom:16px}
+.of-textarea{min-height:120px}
 
 /* ── Dashboard ── */
 .dash-user{font-size:9px;color:var(--dim);margin-bottom:24px}
@@ -396,6 +405,12 @@ body::before{content:"";position:fixed;inset:0;background-image:radial-gradient(
 .dash-order-detail{font-size:9px;color:var(--purple3)}
 .dash-order-note{font-size:8px;color:var(--dim);line-height:2;border-left:2px solid var(--border);padding-left:10px}
 .dash-order-id{font-size:7px;color:var(--dim);margin-top:4px}
+.dash-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:24px}
+.dash-header .win-label{margin:0}
+.dash-header-actions{display:flex;gap:10px}
+.dash-action-link{font-size:9px;padding:10px 14px;text-decoration:none}
+.dash-action-btn{font-size:9px;padding:10px 14px}
+.dash-first-link{display:inline-block;margin-top:16px;text-decoration:none}
 
 /* ── Order Detail + Chat ── */
 .order-detail-layout{display:grid;grid-template-columns:1fr 1.4fr;gap:32px;align-items:start}
@@ -422,6 +437,36 @@ body::before{content:"";position:fixed;inset:0;background-image:radial-gradient(
 .chat-input:focus{border-color:var(--purple3)}
 .chat-send-btn{font-family:"Press Start 2P",monospace;font-size:9px;background:var(--accent);color:var(--button-text);border:none;padding:10px 16px;cursor:pointer;letter-spacing:1px}
 .chat-send-btn:disabled{opacity:.4;cursor:default}
+.order-win-close{text-decoration:none}
+.order-paypal-btn{display:inline-block;text-decoration:none;font-size:10px;margin-top:16px}
+.order-decline-reason{color:#e06c75}
+.order-progress-section{margin-top:16px}
+.order-progress-text{font-size:10px;color:var(--text);line-height:2}
+.chat-pending-note{font-size:10px;color:var(--dim);margin-bottom:16px}
+.chat-err{color:#e06c75;font-size:9px;margin-top:8px}
+.order-chat-label{display:flex;justify-content:space-between;align-items:center}
+.admin-input{font-family:"Press Start 2P",monospace;font-size:9px;padding:6px;background:var(--bg);border:2px solid var(--border);color:var(--text);outline:none;flex:1}
+.admin-input:focus{border-color:var(--purple3)}
+.admin-input-wide{flex:2}
+.admin-textarea{font-family:"Press Start 2P",monospace;font-size:9px;padding:8px;background:var(--bg);border:2px solid var(--border);color:var(--text);width:100%;min-height:60px;line-height:2;resize:vertical}
+.admin-action-row{display:flex;gap:8px;align-items:center;margin-bottom:8px}
+.admin-section-label{margin-top:24px}
+.tbl-btn-complete{color:#007700;border-color:#007700;margin-top:8px}
+.admin-back{margin-bottom:20px}
+.admin-login-btns{display:flex;gap:10px}
+.admin-login-btn{flex:1}
+.admin-login-cancel{flex:1;font-size:11px}
+.admin-refresh-btn{font-size:8px;padding:11px 14px}
+.discord-link{color:var(--purple);text-decoration:none;font-size:10px}
+.discord-anon{color:var(--dim);font-size:10px}
+.review-text-cell{max-width:240px;word-break:break-word}
+.win-label-mt{margin-top:32px}
+.tbl-btn-done{color:#007700;border-color:#007700}
+.review-edit-textarea{min-height:160px;resize:vertical}
+.admin-detail-val{word-break:break-word}
+.reviews-load-btn{font-size:10px;padding:10px 18px}
+.reviews-err{color:#d0d0d0}
+.review-fill-bar{transition:width .6s ease-out}
 
 @media(max-width:700px){
   body{font-size:14px;zoom:1}

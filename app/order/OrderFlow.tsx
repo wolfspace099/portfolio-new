@@ -99,7 +99,7 @@ export default function OrderFlow() {
         <div className="order-progress">
           {['SERVICE', 'PACKAGE', 'DETAILS', 'CONFIRM'].map((label, i) => (
             <div key={label} className={`order-step-dot${i === step ? ' active' : i < step ? ' done' : ''}`}>
-              <span className="order-step-num">{i < step ? '✓' : i + 1}</span>
+              <span className="order-step-num">{i < step ? '*' : i + 1}</span>
               <span className="order-step-label">{label}</span>
             </div>
           ))}
@@ -160,17 +160,17 @@ export default function OrderFlow() {
           {step === 2 && (
             <>
               <div className="order-section-title">PROJECT DETAILS</div>
-              <div className="field" style={{ marginBottom: '20px' }}>
+              <div className="field of-field">
                 <label>DESCRIPTION</label>
                 <textarea
+                  className="of-textarea"
                   value={description}
                   onChange={e => setDescription(e.target.value)}
                   placeholder="Describe your project, goals, and any specific requirements..."
-                  style={{ minHeight: '120px' }}
                 />
               </div>
               {fields.map(f => (
-                <div key={f.key} className="field" style={{ marginBottom: '16px' }}>
+                <div key={f.key} className="field of-subfield">
                   <label>{f.label}</label>
                   {f.type === 'select' ? (
                     <select value={details[f.key] || ''} onChange={e => setDetails(d => ({ ...d, [f.key]: e.target.value }))}>
@@ -213,7 +213,7 @@ export default function OrderFlow() {
                 <div className="order-auth-prompt">
                   <p>You need an account to place an order.</p>
                   <button className="form-submit" onClick={() => setShowAuth(true)}>LOGIN / REGISTER</button>
-                  <button className="btn btn-outline order-back" onClick={prevStep} style={{ marginTop: '12px' }}>BACK</button>
+                  <button className="btn btn-outline order-back" onClick={prevStep}>BACK</button>
                 </div>
               )}
             </>

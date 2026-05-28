@@ -73,7 +73,7 @@ export default function DashboardPage() {
             </div>
             <div className="win-body">
               <p className="empty">LOGIN TO VIEW YOUR ORDERS</p>
-              <button className="form-submit" onClick={() => setShowAuth(true)} style={{ marginTop: '16px' }}>LOGIN</button>
+              <button className="form-submit dash-first-link" onClick={() => setShowAuth(true)}>LOGIN</button>
             </div>
           </div>
         </section>
@@ -92,11 +92,11 @@ export default function DashboardPage() {
           </div>
         </div>
         <div className="win-body">
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '24px' }}>
-            <div className="win-label" style={{ margin: 0 }}>MY ORDERS</div>
-            <div style={{ display: 'flex', gap: '10px' }}>
-              <a href="/order" className="btn btn-outline" style={{ fontSize: '9px', padding: '10px 14px', textDecoration: 'none' }}>+ NEW ORDER</a>
-              <button className="btn btn-outline" onClick={signOut} style={{ fontSize: '9px', padding: '10px 14px' }}>LOGOUT</button>
+          <div className="dash-header">
+            <div className="win-label">MY ORDERS</div>
+            <div className="dash-header-actions">
+              <a href="/order" className="btn btn-outline dash-action-link">+ NEW ORDER</a>
+              <button className="btn btn-outline dash-action-btn" onClick={signOut}>LOGOUT</button>
             </div>
           </div>
 
@@ -107,7 +107,7 @@ export default function DashboardPage() {
           ) : !orders.length ? (
             <div className="dash-empty">
               <p>NO ORDERS YET.</p>
-              <a href="/order" className="form-submit" style={{ display: 'inline-block', marginTop: '16px', textDecoration: 'none' }}>PLACE YOUR FIRST ORDER</a>
+              <a href="/order" className="form-submit dash-first-link">PLACE YOUR FIRST ORDER</a>
             </div>
           ) : (
             <div className="dash-orders">
@@ -120,7 +120,7 @@ export default function DashboardPage() {
                   {o.quoted_price && <div className="dash-order-detail">QUOTED: {o.quoted_price}</div>}
                   {o.eta && <div className="dash-order-detail">ETA: {o.eta}</div>}
                   {o.progress_note && <div className="dash-order-note">{o.progress_note}</div>}
-                  <div className="dash-order-id"># {o.id.slice(0, 8)}...</div>
+                  <div className="dash-order-id">#{o.id.slice(0, 8)}</div>
                 </a>
               ))}
             </div>

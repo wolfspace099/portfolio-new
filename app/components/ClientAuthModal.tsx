@@ -15,18 +15,31 @@ export default function ClientAuthModal({ onClose, onSuccess }: Props) {
   const [email, setEmail] = useState('');
   const [pass, setPass] = useState('');
   const [err, setErr] = useState('');
+  const [notice, setNotice] = useState('');
   const [loading, setLoading] = useState(false);
 
   async function handleSubmit() {
     if (!email || !pass) { setErr('EMAIL AND PASSWORD REQUIRED'); return; }
     if (mode === 'register' && !name) { setErr('NAME REQUIRED'); return; }
-    setLoading(true); setErr('');
-    const res = mode === 'login'
-      ? await signIn(email, pass)
-      : await signUp(email, pass, name);
-    setLoading(false);
-    if (res.error) { setErr(res.error.toUpperCase()); return; }
-    onSuccess();
+    setLoading(true); setErr(''); setNotice('');
+
+    if (mode === 'login') {
+      const res = await signIn(email, pass);
+      setLoading(false);
+      if (res.error) { setErr(res.error); return; }
+      onSuccess();
+    } else {
+      const res = await signUp(email, pass, name);
+      setLoading(false);
+      if (res.error) { setErr(res.error); return; }
+      if (res.confirm) {
+        setNotice('ACCOUNT CREATED — CHECK YOUR EMAIL TO CONFIRM, THEN LOG IN.');
+        setMode('login');
+        setPass('');
+        return;
+      }
+      onSuccess();
+    }
   }
 
   return (
@@ -43,32 +56,34 @@ export default function ClientAuthModal({ onClose, onSuccess }: Props) {
         <div className="win-body">
           <div className="win-label">CLIENT PORTAL</div>
 
+          {notice && <p className="auth-notice">{notice}</p>}
+
           {mode === 'register' && (
-            <div className="field" style={{ marginBottom: '16px' }}>
+            <div className="field auth-field">
               <label>NAME</label>
               <input type="text" value={name} onChange={e => setName(e.target.value)} placeholder="Your name" />
             </div>
           )}
-          <div className="field" style={{ marginBottom: '16px' }}>
+          <div className="field auth-field">
             <label>EMAIL</label>
             <input type="email" value={email} onChange={e => setEmail(e.target.value)}
               onKeyDown={e => { if (e.key === 'Enter') handleSubmit(); }} placeholder="you@email.com" />
           </div>
-          <div className="field" style={{ marginBottom: '20px' }}>
+          <div className="field auth-field-last">
             <label>PASSWORD</label>
             <input type="password" value={pass} onChange={e => setPass(e.target.value)}
               onKeyDown={e => { if (e.key === 'Enter') handleSubmit(); }} placeholder="••••••••" />
           </div>
 
-          <button className="form-submit" onClick={handleSubmit} disabled={loading} style={{ width: '100%', marginBottom: '12px' }}>
+          <button className="form-submit auth-submit" onClick={handleSubmit} disabled={loading}>
             {loading ? 'LOADING...' : mode === 'login' ? 'LOGIN' : 'CREATE ACCOUNT'}
           </button>
 
-          <button className="auth-switch-btn" onClick={() => { setMode(mode === 'login' ? 'register' : 'login'); setErr(''); }}>
+          <button className="auth-switch-btn" onClick={() => { setMode(mode === 'login' ? 'register' : 'login'); setErr(''); setNotice(''); }}>
             {mode === 'login' ? '> NO ACCOUNT? REGISTER' : '> HAVE AN ACCOUNT? LOGIN'}
           </button>
 
-          {err && <p className="admin-err show" style={{ marginTop: '12px' }}>{err}</p>}
+          {err && <p className="admin-err show auth-err">{err}</p>}
         </div>
       </div>
     </div>

@@ -133,7 +133,7 @@ function OrderDetail({ order, onBack, onRefresh }: { order: Order; onBack: () =>
 
   return (
     <div>
-      <button className="tbl-btn" onClick={onBack} style={{ marginBottom: '20px' }}>BACK TO LIST</button>
+      <button className="tbl-btn admin-back" onClick={onBack}>BACK TO LIST</button>
 
       <div className="order-detail-layout">
         <div className="order-detail-info">
@@ -146,7 +146,7 @@ function OrderDetail({ order, onBack, onRefresh }: { order: Order; onBack: () =>
           ].map(f => (
             <div key={f.lbl} className="detail-field">
               <span className="lbl">{f.lbl}</span>
-              <span className="val" style={{ wordBreak: 'break-word' }}>{f.val}</span>
+              <span className="val admin-detail-val">{f.val}</span>
             </div>
           ))}
           {order.details && Object.entries(order.details).map(([k, v]) => v ? (
@@ -156,15 +156,14 @@ function OrderDetail({ order, onBack, onRefresh }: { order: Order; onBack: () =>
             </div>
           ) : null)}
 
-          <div className="win-label" style={{ marginTop: '24px' }}>ACTIONS</div>
+          <div className="win-label admin-section-label">ACTIONS</div>
 
           {order.status === 'pending' && (
             <div className="detail-actions">
               <button className="tbl-btn tbl-btn-approve" disabled={loading} onClick={() => action('accept')}>ACCEPT</button>
-              <div style={{ display: 'flex', gap: '8px', alignItems: 'center', marginTop: '8px' }}>
-                <input type="text" placeholder="Decline reason..." value={declineReason}
-                  onChange={e => setDeclineReason(e.target.value)}
-                  style={{ flex: 1, fontFamily: '"Press Start 2P",monospace', fontSize: '9px', padding: '6px', background: 'var(--bg)', border: '2px solid var(--border)', color: 'var(--text)' }} />
+              <div className="admin-action-row">
+                <input className="admin-input" type="text" placeholder="Decline reason..." value={declineReason}
+                  onChange={e => setDeclineReason(e.target.value)} />
                 <button className="tbl-btn tbl-btn-reject" disabled={loading} onClick={() => action('decline', { reason: declineReason })}>DECLINE</button>
               </div>
             </div>
@@ -172,11 +171,9 @@ function OrderDetail({ order, onBack, onRefresh }: { order: Order; onBack: () =>
 
           {['accepted', 'quote_declined'].includes(order.status) && (
             <div className="detail-actions">
-              <div style={{ display: 'flex', gap: '8px', marginBottom: '8px' }}>
-                <input type="text" placeholder="Price (e.g. $50)" value={price} onChange={e => setPrice(e.target.value)}
-                  style={{ flex: 1, fontFamily: '"Press Start 2P",monospace', fontSize: '9px', padding: '6px', background: 'var(--bg)', border: '2px solid var(--border)', color: 'var(--text)' }} />
-                <input type="text" placeholder="PayPal link (optional)" value={paypal} onChange={e => setPaypal(e.target.value)}
-                  style={{ flex: 2, fontFamily: '"Press Start 2P",monospace', fontSize: '9px', padding: '6px', background: 'var(--bg)', border: '2px solid var(--border)', color: 'var(--text)' }} />
+              <div className="admin-action-row">
+                <input className="admin-input" type="text" placeholder="Price (e.g. $50)" value={price} onChange={e => setPrice(e.target.value)} />
+                <input className="admin-input admin-input-wide" type="text" placeholder="PayPal link (optional)" value={paypal} onChange={e => setPaypal(e.target.value)} />
               </div>
               <button className="tbl-btn tbl-btn-approve" disabled={loading || !price} onClick={() => action('quote', { price, paypal })}>
                 SEND PRICE QUOTE
@@ -186,9 +183,8 @@ function OrderDetail({ order, onBack, onRefresh }: { order: Order; onBack: () =>
 
           {order.status === 'awaiting_payment' && (
             <div className="detail-actions">
-              <div style={{ display: 'flex', gap: '8px', marginBottom: '8px' }}>
-                <input type="text" placeholder="PayPal link" value={paypal} onChange={e => setPaypal(e.target.value)}
-                  style={{ flex: 1, fontFamily: '"Press Start 2P",monospace', fontSize: '9px', padding: '6px', background: 'var(--bg)', border: '2px solid var(--border)', color: 'var(--text)' }} />
+              <div className="admin-action-row">
+                <input className="admin-input" type="text" placeholder="PayPal link" value={paypal} onChange={e => setPaypal(e.target.value)} />
                 <button className="tbl-btn" disabled={loading || !paypal} onClick={() => action('send_paypal', { link: paypal })}>SEND PAYPAL</button>
               </div>
               <button className="tbl-btn tbl-btn-approve" disabled={loading} onClick={() => action('mark_paid')}>MARK PAID</button>
@@ -197,14 +193,12 @@ function OrderDetail({ order, onBack, onRefresh }: { order: Order; onBack: () =>
 
           {['in_progress', 'paid'].includes(order.status) && (
             <div className="detail-actions">
-              <textarea placeholder="Progress note..." value={note} onChange={e => setNote(e.target.value)}
-                style={{ width: '100%', fontFamily: '"Press Start 2P",monospace', fontSize: '9px', padding: '8px', background: 'var(--bg)', border: '2px solid var(--border)', color: 'var(--text)', marginBottom: '8px', minHeight: '60px', lineHeight: 2 }} />
-              <div style={{ display: 'flex', gap: '8px' }}>
-                <input type="text" placeholder="ETA (e.g. 3 days)" value={eta} onChange={e => setEta(e.target.value)}
-                  style={{ flex: 1, fontFamily: '"Press Start 2P",monospace', fontSize: '9px', padding: '6px', background: 'var(--bg)', border: '2px solid var(--border)', color: 'var(--text)' }} />
+              <textarea className="admin-textarea" placeholder="Progress note..." value={note} onChange={e => setNote(e.target.value)} />
+              <div className="admin-action-row">
+                <input className="admin-input" type="text" placeholder="ETA (e.g. 3 days)" value={eta} onChange={e => setEta(e.target.value)} />
                 <button className="tbl-btn tbl-btn-approve" disabled={loading} onClick={() => action('update', { note, eta })}>POST UPDATE</button>
               </div>
-              <button className="tbl-btn" disabled={loading} style={{ marginTop: '8px', color: '#007700', borderColor: '#007700' }} onClick={() => action('complete')}>
+              <button className="tbl-btn tbl-btn-complete" disabled={loading} onClick={() => action('complete')}>
                 MARK COMPLETE
               </button>
             </div>
@@ -212,7 +206,7 @@ function OrderDetail({ order, onBack, onRefresh }: { order: Order; onBack: () =>
         </div>
 
         <div className="order-chat">
-          <div className="win-label" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+          <div className="order-chat-label win-label">
             CHAT
             {!chatLoaded && <button className="tbl-btn" onClick={loadChat}>LOAD CHAT</button>}
           </div>

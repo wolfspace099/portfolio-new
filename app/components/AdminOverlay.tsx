@@ -130,7 +130,7 @@ export default function AdminOverlay({ onClose, onEaster }: Props) {
           </div>
           <div className="win-body admin-login-body">
             <div className="win-label">AUTHENTICATE</div>
-            <div className="field" style={{ marginBottom: '16px' }}>
+            <div className="field auth-field">
               <label>EMAIL</label>
               <input
                 type="email"
@@ -140,7 +140,7 @@ export default function AdminOverlay({ onClose, onEaster }: Props) {
                 placeholder="admin@email.com"
               />
             </div>
-            <div className="field" style={{ marginBottom: '16px' }}>
+            <div className="field auth-field-last">
               <label>PASSWORD</label>
               <input
                 type="password"
@@ -150,11 +150,11 @@ export default function AdminOverlay({ onClose, onEaster }: Props) {
                 placeholder="Enter password..."
               />
             </div>
-            <div style={{ display: 'flex', gap: '10px' }}>
-              <button className="form-submit" style={{ flex: 1 }} onClick={handleLogin} disabled={loading}>
+            <div className="admin-login-btns">
+              <button className="form-submit admin-login-btn" onClick={handleLogin} disabled={loading}>
                 {loading ? 'CHECKING...' : 'LOGIN'}
               </button>
-              <button className="btn btn-outline" style={{ flex: 1, fontSize: '11px' }} onClick={onClose}>
+              <button className="btn btn-outline admin-login-cancel" onClick={onClose}>
                 CANCEL
               </button>
             </div>
@@ -173,7 +173,7 @@ export default function AdminOverlay({ onClose, onEaster }: Props) {
           </div>
           <div className="win-body">
             <div className="admin-toolbar">
-              <button className="btn btn-outline" onClick={loadData} style={{ fontSize: '8px', padding: '11px 14px' }}>
+              <button className="btn btn-outline admin-refresh-btn" onClick={loadData}>
                 REFRESH DB
               </button>
             </div>
@@ -252,15 +252,15 @@ export default function AdminOverlay({ onClose, onEaster }: Props) {
                           <td>{r.name}</td>
                           <td>
                             {r.discord_id ? (
-                              <a href={`https://discord.com/users/${r.discord_id}`} target="_blank" rel="noopener" style={{ color: 'var(--purple)', textDecoration: 'none', fontSize: '10px' }}>
+                              <a href={`https://discord.com/users/${r.discord_id}`} target="_blank" rel="noopener" className="discord-link">
                                 @{r.discord_username || r.discord_id}
                               </a>
                             ) : (
-                              <span style={{ color: 'var(--dim)', fontSize: '10px' }}>Anonymous</span>
+                              <span className="discord-anon">Anonymous</span>
                             )}
                           </td>
                           <td>{r.rank}</td>
-                          <td style={{ maxWidth: '240px', wordBreak: 'break-word' }}>
+                          <td className="review-text-cell">
                             {r.text.slice(0, 80)}{r.text.length > 80 ? '...' : ''}
                           </td>
                           <td>
@@ -274,7 +274,7 @@ export default function AdminOverlay({ onClose, onEaster }: Props) {
                   </table>
                 </div>
               )}
-              <div className="win-label" style={{ marginTop: '32px' }}>APPROVED REVIEWS</div>
+              <div className="win-label win-label-mt">APPROVED REVIEWS</div>
               {!approved.length ? (
                 <p className="empty">NO APPROVED REVIEWS</p>
               ) : (
@@ -290,15 +290,15 @@ export default function AdminOverlay({ onClose, onEaster }: Props) {
                           <td>{r.name}</td>
                           <td>
                             {r.discord_id ? (
-                              <a href={`https://discord.com/users/${r.discord_id}`} target="_blank" rel="noopener" style={{ color: 'var(--purple)', textDecoration: 'none', fontSize: '10px' }}>
+                              <a href={`https://discord.com/users/${r.discord_id}`} target="_blank" rel="noopener" className="discord-link">
                                 @{r.discord_username || r.discord_id}
                               </a>
                             ) : (
-                              <span style={{ color: 'var(--dim)', fontSize: '10px' }}>Anonymous</span>
+                              <span className="discord-anon">Anonymous</span>
                             )}
                           </td>
                           <td>{r.rank}</td>
-                          <td style={{ maxWidth: '240px', wordBreak: 'break-word' }}>
+                          <td className="review-text-cell">
                             {r.text.slice(0, 80)}{r.text.length > 80 ? '...' : ''}
                           </td>
                           <td>
@@ -369,7 +369,7 @@ function QuoteEditor({ q, onClose, onSaved }: { q: Quote; onClose: () => void; o
               await apiPatch('/api/admin', { table: 'quotes', id: q.id, payload: { status: 'seen' } });
               onSaved();
             }}>MARK SEEN</button>
-            <button className="tbl-btn" style={{ color: '#007700', borderColor: '#007700' }} onClick={async () => {
+            <button className="tbl-btn tbl-btn-done" onClick={async () => {
               await apiPatch('/api/admin', { table: 'quotes', id: q.id, payload: { status: 'done' } });
               onSaved();
             }}>MARK DONE</button>
@@ -428,7 +428,7 @@ function ReviewEditor({ r, onClose, onSaved }: { r: Review; onClose: () => void;
           </div>
           <div className="detail-field">
             <span className="lbl">REVIEW</span>
-            <span className="val"><textarea value={text} onChange={e => setText(e.target.value)} style={{ minHeight: '160px', resize: 'vertical' }} /></span>
+            <span className="val"><textarea className="review-edit-textarea" value={text} onChange={e => setText(e.target.value)} /></span>
           </div>
           <div className="detail-actions">
             <button className="tbl-btn tbl-btn-approve" onClick={async () => {

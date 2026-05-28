@@ -71,9 +71,8 @@ export default function Reviews() {
             <div className="reviews-head">
               <div className="win-label">CLIENT TESTIMONIALS</div>
               <button
-                className="btn btn-outline"
+                className="btn btn-outline reviews-load-btn"
                 onClick={() => setShowReview(true)}
-                style={{ fontSize: '10px', padding: '10px 18px' }}
               >
                 + LEAVE A REVIEW
               </button>
@@ -85,7 +84,7 @@ export default function Reviews() {
                   <div key={n} className="review-stat">
                     <span className="n">{n}</span>
                     <div className="bar">
-                      <div className="fill" style={{ width: `${pct}%` }} />
+                      <div className="fill review-fill-bar" style={{ width: `${pct}%` }} />
                     </div>
                     <span className="pct">{counts[n - 1]}</span>
                   </div>
@@ -94,7 +93,7 @@ export default function Reviews() {
             </div>
             <div className="reviews-list">
               {error ? (
-                <p className="empty" style={{ color: '#d0d0d0' }}>{error}</p>
+                <p className="empty reviews-err">{error}</p>
               ) : !reviews.length ? (
                 <p className="empty">NO REVIEWS YET</p>
               ) : (

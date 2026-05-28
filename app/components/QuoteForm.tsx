@@ -159,7 +159,7 @@ export default function QuoteForm() {
                 </div>
 
                 <div className={`form-expand${tile ? ' open' : ''}`}>
-                  <div className="field" style={{ marginBottom: '18px' }}>
+                  <div className="field qf-field">
                     <label>NAME</label>
                     <input
                       type="text"
@@ -170,11 +170,11 @@ export default function QuoteForm() {
                     />
                   </div>
                   {discordUser && (
-                    <div className="discord-bar visible" style={{ marginBottom: '18px' }}>
+                    <div className="discord-bar visible qf-field">
                       DISCORD: <span>@{discordUser.username}</span>
                     </div>
                   )}
-                  <div className="form-row2" style={{ marginBottom: '18px' }}>
+                  <div className="form-row2 qf-field">
                     <div className="field">
                       <label>PROJECT TYPE</label>
                       <select value={subtype} onChange={e => setSubtype(e.target.value)} required>
@@ -196,7 +196,7 @@ export default function QuoteForm() {
                       </select>
                     </div>
                   </div>
-                  <div className="field" style={{ marginBottom: '18px' }}>
+                  <div className="field qf-field">
                     <label>DESCRIPTION</label>
                     <textarea
                       value={desc}
