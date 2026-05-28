@@ -1,7 +1,8 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { apiPost, apiPatch, apiDelete, apiGet, setAdminToken } from '@/lib/api';
+import AdminOrders from './AdminOrders';
 
 interface Quote {
   id: number;
@@ -26,6 +27,23 @@ interface Review {
   discord_username?: string;
 }
 
+interface Order {
+  id: string;
+  created_at: string;
+  client_name: string;
+  client_email: string;
+  service_type: string;
+  package_name: string;
+  description: string;
+  details?: Record<string, string>;
+  status: string;
+  quoted_price?: string;
+  paypal_link?: string;
+  eta?: string;
+  progress_note?: string;
+  decline_reason?: string;
+}
+
 interface Props {
   onClose: () => void;
   onEaster: () => void;
@@ -37,16 +55,18 @@ export default function AdminOverlay({ onClose, onEaster }: Props) {
   const [pass, setPass] = useState('');
   const [err, setErr] = useState('');
   const [loading, setLoading] = useState(false);
-  const [tab, setTab] = useState('quotes');
+  const [tab, setTab] = useState('orders');
   const [quotes, setQuotes] = useState<Quote[]>([]);
   const [pending, setPending] = useState<Review[]>([]);
   const [approved, setApproved] = useState<Review[]>([]);
+  const [orders, setOrders] = useState<Order[]>([]);
   const [editor, setEditor] = useState<{ type: 'quote' | 'review'; data: Quote | Review } | null>(null);
 
   async function loadData() {
     const res = await apiGet('/api/admin');
     if (res.error) return;
     setQuotes(res.quotes || []);
+    setOrders(res.orders || []);
     const all: Review[] = res.reviews || [];
     setPending(all.filter(r => r.status !== 'approved'));
     setApproved(all.filter(r => r.status === 'approved'));
@@ -71,11 +91,6 @@ export default function AdminOverlay({ onClose, onEaster }: Props) {
     } finally {
       setLoading(false);
     }
-  }
-
-  async function setStatus(id: number, status: string) {
-    await apiPatch('/api/admin', { table: 'quotes', id, payload: { status } });
-    loadData();
   }
 
   async function delQuote(id: number) {
@@ -164,21 +179,30 @@ export default function AdminOverlay({ onClose, onEaster }: Props) {
             </div>
             <div className="admin-stats">
               <div className="stat-cell">
-                <span className="n">{quotes.length}</span>
-                <span className="l">QUOTES</span>
+                <span className="n">{orders.length}</span>
+                <span className="l">ORDERS</span>
+              </div>
+              <div className="stat-cell">
+                <span className="n">{orders.filter(o => o.status === 'pending').length}</span>
+                <span className="l">NEW ORDERS</span>
               </div>
               <div className="stat-cell">
                 <span className="n">{quotes.filter(q => q.status === 'new').length}</span>
-                <span className="l">NEW</span>
+                <span className="l">NEW QUOTES</span>
               </div>
               <div className="stat-cell">
                 <span className="n">{pending.length}</span>
-                <span className="l">REVIEWS PENDING</span>
+                <span className="l">REVIEWS</span>
               </div>
             </div>
             <div className="admin-tabs">
+              <button className={`admin-tab${tab === 'orders' ? ' active' : ''}`} onClick={() => setTab('orders')}>ORDERS</button>
               <button className={`admin-tab${tab === 'quotes' ? ' active' : ''}`} onClick={() => setTab('quotes')}>QUOTES</button>
               <button className={`admin-tab${tab === 'reviews' ? ' active' : ''}`} onClick={() => setTab('reviews')}>REVIEWS</button>
+            </div>
+
+            <div className={`admin-tab-content${tab === 'orders' ? ' active' : ''}`}>
+              <AdminOrders orders={orders} onRefresh={loadData} />
             </div>
 
             <div className={`admin-tab-content${tab === 'quotes' ? ' active' : ''}`}>

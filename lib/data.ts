@@ -43,6 +43,14 @@ export const PROJECTS: Project[] = [
     viewType: 'link',
     link: 'https://github.com/wolfspace099/portfolio-new/',
   },
+  {
+    name: 'planr',
+    desc: 'A WIP app for students to schedule/organize their school life, and integrate it with their real life, built with React, Convex, Clerk and (soon) expo.',
+    tags: ['TypeScript', 'React', 'Next.js', 'Convex', 'Clerk', 'Expo'],
+    category: 'web',
+    viewType: 'link',
+    link: 'https://planr.cqtdev.cc',
+  },
 ]
 
 export type SkillGroup = {
@@ -80,6 +88,32 @@ export const SKILLS: SkillGroup[] = [
     ],
   },
 ]
+
+export type ServicePackage = {
+  id: string
+  name: string
+  desc: string
+  price: string
+  features: string[]
+}
+
+export const PACKAGES: Record<string, ServicePackage[]> = {
+  minecraft: [
+    { id: 'mc-starter', name: 'STARTER', desc: 'Single-feature plugin, clean delivery', price: '$25–$35', features: ['1 core feature', 'Basic config file', 'Bug-fix support'] },
+    { id: 'mc-pro', name: 'PRO', desc: 'Multi-system plugin with custom gameplay', price: '$50–$100', features: ['Multiple systems', 'Custom config', 'Full support', 'Skript or Java'] },
+    { id: 'mc-custom', name: 'CUSTOM', desc: 'Large-scale — priced after scoping', price: 'QUOTE', features: ['Any complexity', 'Full scope discussion', 'Price confirmed after spec'] },
+  ],
+  web: [
+    { id: 'web-starter', name: 'STARTER', desc: 'Portfolio or landing page, deployed', price: '$30–$60', features: ['Responsive design', 'Deploy to Vercel', 'Contact form'] },
+    { id: 'web-pro', name: 'PRO', desc: 'Full-stack app with auth, DB, and dashboard', price: '$80–$200', features: ['Auth system', 'Database + API', 'Admin panel', 'Deployed & monitored'] },
+    { id: 'web-custom', name: 'CUSTOM', desc: 'Complex platforms — priced after scoping', price: 'QUOTE', features: ['Any stack', 'Full scope discussion', 'Price confirmed after spec'] },
+  ],
+  devops: [
+    { id: 'dev-basic', name: 'BASIC', desc: 'VPS setup, Docker, basic CI/CD', price: '$20–$40', features: ['Server configuration', 'Docker setup', 'Basic CI/CD pipeline'] },
+    { id: 'dev-pro', name: 'PRO', desc: 'Full infra — monitoring, automation, pipelines', price: '$50–$100', features: ['Full infrastructure', 'Monitoring setup', 'Automation scripts', 'Documentation'] },
+    { id: 'dev-custom', name: 'CUSTOM', desc: 'Custom tooling — priced after scoping', price: 'QUOTE', features: ['Any complexity', 'Full scope discussion', 'Price confirmed after spec'] },
+  ],
+}
 
 export const PHRASES = [
   'Full-Stack developer',

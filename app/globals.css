@@ -149,17 +149,14 @@ body::before{content:"";position:fixed;inset:0;background-image:radial-gradient(
 .proj-link:hover{text-decoration:underline}
 .proj-link-btn{font-family:"Press Start 2P",monospace}
 
-.skills-cols{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:32px}
+.skills-cols{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:32px}
 .skill-group{display:flex;flex-direction:column;gap:12px}
 .skill-group-title{font-size:11px;color:var(--accent);margin-bottom:16px;letter-spacing:2px}
 .skill-group-title::before{content:"// ";color:var(--dim)}
-.skill-item{display:flex;flex-direction:column;gap:6px;margin-bottom:4px}
-.skill-item-row{display:flex;justify-content:space-between;align-items:center}
-.skill-name-txt{font-size:11px;color:var(--text)}
-.skill-name-txt::before{content:"> ";color:var(--purple3)}
-.skill-pct{font-size:9px;color:var(--purple3);text-align:right}
-.skill-bar{height:6px;background:var(--bg);border:2px solid var(--border);overflow:hidden;margin-top:2px}
-.skill-bar-fill{height:100%;background:var(--accent);width:0;transition:width 600ms ease-out}
+.skill-cards{display:flex;flex-wrap:wrap;gap:8px}
+.skill-card{font-size:10px;color:var(--text);border:1px solid var(--border);padding:6px 12px;letter-spacing:.5px;transition:border-color 150ms,color 150ms}
+.skill-card::before{content:"> ";color:var(--purple3)}
+.skill-card:hover{border-color:var(--accent);color:var(--accent)}
 
 .reviews-summary{display:flex;flex-direction:column;gap:10px;margin-bottom:22px}
 .review-stat{display:grid;grid-template-columns:70px 1fr 22px;gap:10px;align-items:center}
@@ -196,7 +193,7 @@ body::before{content:"";position:fixed;inset:0;background-image:radial-gradient(
 .form-done.show{display:block}
 
 .service-tiles{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:24px}
-.service-tile{border:2px solid var(--border);background:var(--bg2);padding:18px 14px;cursor:pointer;transition:border-color .15s,color .15s;text-align:left}
+.service-tile{border:2px solid var(--border);background:var(--bg2);padding:18px 14px;cursor:pointer;transition:border-color .15s,color .15s;text-align:left;font-family:"Press Start 2P",monospace}
 .service-tile:hover{border-color:var(--purple3)}
 .service-tile.active{border-color:var(--accent)}
 .service-tile-name{font-size:10px;color:var(--text);margin-bottom:8px;display:block}
@@ -337,6 +334,95 @@ body::before{content:"";position:fixed;inset:0;background-image:radial-gradient(
 .hero-tag.visible{opacity:1;transform:none}
 .hero-tag:hover{border-color:var(--accent);color:var(--accent)}
 
+/* ── Client Auth Modal ── */
+.auth-backdrop{position:fixed;inset:0;background:rgba(0,0,0,.7);display:flex;align-items:center;justify-content:center;z-index:900}
+.auth-win{width:100%;max-width:420px}
+.auth-switch-btn{font-family:"Press Start 2P",monospace;font-size:9px;background:none;border:none;color:var(--purple3);cursor:pointer;padding:0;letter-spacing:1px;display:block}
+
+/* ── Order Flow ── */
+.order-flow{display:flex;flex-direction:column;gap:32px}
+.order-progress{display:flex;gap:0;margin-bottom:8px;border-bottom:2px solid var(--border);padding-bottom:20px}
+.order-step-dot{display:flex;flex-direction:column;align-items:center;gap:8px;flex:1;position:relative;opacity:.4}
+.order-step-dot.active,.order-step-dot.done{opacity:1}
+.order-step-dot.active .order-step-num{border-color:var(--accent);color:var(--accent)}
+.order-step-dot.done .order-step-num{border-color:var(--purple3);color:var(--purple3)}
+.order-step-num{width:28px;height:28px;border:2px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:9px;color:var(--dim)}
+.order-step-label{font-size:7px;color:var(--dim);letter-spacing:1px}
+.order-step-dot.active .order-step-label{color:var(--accent)}
+.order-panel{min-height:260px}
+.order-section-title{font-size:10px;color:var(--accent);letter-spacing:2px;margin-bottom:24px}
+.order-section-title::before{content:"// ";color:var(--dim)}
+.order-type-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:24px}
+.order-type-card{border:2px solid var(--border);background:var(--bg2);padding:20px 16px;cursor:pointer;text-align:left;transition:border-color .15s;font-family:"Press Start 2P",monospace;display:flex;flex-direction:column;gap:10px}
+.order-type-card:hover{border-color:var(--purple3)}
+.order-type-card.active{border-color:var(--accent)}
+.order-type-name{font-size:10px;color:var(--text)}
+.order-type-card.active .order-type-name{color:var(--accent)}
+.order-type-desc{font-size:8px;color:var(--dim);line-height:2}
+.order-pkg-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:24px}
+.order-pkg-card{border:2px solid var(--border);background:var(--bg2);padding:20px 16px;cursor:pointer;text-align:left;transition:border-color .15s;font-family:"Press Start 2P",monospace;display:flex;flex-direction:column;gap:10px}
+.order-pkg-card:hover{border-color:var(--purple3)}
+.order-pkg-card.active{border-color:var(--accent)}
+.order-pkg-top{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:6px}
+.order-pkg-name{font-size:11px;color:var(--text)}
+.order-pkg-card.active .order-pkg-name{color:var(--accent)}
+.order-pkg-price{font-size:9px;color:var(--purple3)}
+.order-pkg-desc{font-size:8px;color:var(--dim);line-height:2;margin:0 0 8px}
+.order-pkg-features{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:5px}
+.order-pkg-features li{font-size:7px;color:var(--dim);line-height:1.8}
+.order-pkg-features li::before{content:"+ ";color:var(--purple3)}
+.order-actions{display:flex;gap:12px;margin-top:24px}
+.order-next{flex:1}
+.order-back{flex:0 0 auto;font-size:10px;padding:14px 18px}
+.order-summary{border:2px solid var(--border);padding:16px;margin-bottom:24px;display:flex;flex-direction:column;gap:12px}
+.order-summary-row{display:flex;gap:16px;font-size:9px}
+.order-summary-row span:first-child{color:var(--dim);min-width:120px}
+.order-summary-row span:last-child{color:var(--text);word-break:break-word}
+.order-summary-desc{font-size:8px;line-height:2;color:var(--dim)}
+.order-auth-prompt{display:flex;flex-direction:column;align-items:flex-start;gap:16px;font-size:10px;color:var(--dim)}
+.order-done{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:300px;gap:20px}
+.order-done-title{font-size:14px;color:var(--accent);letter-spacing:2px}
+.order-done-sub{font-size:10px;color:var(--dim)}
+
+/* ── Dashboard ── */
+.dash-user{font-size:9px;color:var(--dim);margin-bottom:24px}
+.dash-user span{color:var(--purple3)}
+.dash-empty{display:flex;flex-direction:column;align-items:flex-start;gap:8px;font-size:10px;color:var(--dim);padding:16px 0}
+.dash-orders{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:16px}
+.dash-order-card{display:flex;flex-direction:column;gap:8px;border:2px solid var(--border);padding:18px;text-decoration:none;transition:border-color .15s}
+.dash-order-card:hover{border-color:var(--purple3)}
+.dash-order-top{display:flex;justify-content:space-between;align-items:flex-start;gap:10px}
+.dash-order-type{font-size:10px;color:var(--text)}
+.dash-order-detail{font-size:9px;color:var(--purple3)}
+.dash-order-note{font-size:8px;color:var(--dim);line-height:2;border-left:2px solid var(--border);padding-left:10px}
+.dash-order-id{font-size:7px;color:var(--dim);margin-top:4px}
+
+/* ── Order Detail + Chat ── */
+.order-detail-layout{display:grid;grid-template-columns:1fr 1.4fr;gap:32px;align-items:start}
+.order-detail-info{display:flex;flex-direction:column;gap:0}
+.order-chat{display:flex;flex-direction:column;gap:12px}
+.chat-messages{height:340px;overflow-y:auto;border:2px solid var(--border);padding:14px;display:flex;flex-direction:column;gap:10px;background:var(--bg)}
+.chat-msg{display:flex;flex-direction:column}
+.chat-msg-client{align-items:flex-end}
+.chat-msg-admin{align-items:flex-start}
+.chat-msg-system{align-items:center}
+.chat-bubble{display:flex;flex-direction:column;gap:4px;max-width:80%}
+.chat-msg-client .chat-bubble{align-items:flex-end}
+.chat-msg-system .chat-bubble{align-items:center;max-width:100%}
+.chat-sender{font-size:7px;color:var(--dim);letter-spacing:1px}
+.chat-content{font-size:9px;color:var(--text);background:var(--bg2);border:1px solid var(--border);padding:8px 12px;line-height:2;word-break:break-word}
+.chat-msg-client .chat-content{border-color:var(--purple3)}
+.chat-msg-system .chat-content{border-color:var(--border);color:var(--dim);background:var(--bg);text-align:center;font-size:8px}
+.chat-time{font-size:7px;color:var(--dim)}
+.chat-quote-prompt{border:2px solid var(--accent);padding:16px;display:flex;flex-direction:column;gap:12px}
+.chat-quote-text{font-size:10px;color:var(--accent)}
+.chat-quote-actions{display:flex;gap:10px}
+.chat-input-row{display:flex;gap:8px}
+.chat-input{flex:1;font-family:"Press Start 2P",monospace;font-size:10px;background:var(--bg);border:2px solid var(--border);color:var(--text);padding:10px 12px;outline:none}
+.chat-input:focus{border-color:var(--purple3)}
+.chat-send-btn{font-family:"Press Start 2P",monospace;font-size:9px;background:var(--accent);color:var(--button-text);border:none;padding:10px 16px;cursor:pointer;letter-spacing:1px}
+.chat-send-btn:disabled{opacity:.4;cursor:default}
+
 @media(max-width:700px){
   body{font-size:14px;zoom:1}
   .page{padding:12px 12px 80px}
@@ -389,8 +475,6 @@ body::before{content:"";position:fixed;inset:0;background-image:radial-gradient(
   .review-popup-win{max-width:100%}
   .tos-popup-win,.video-popup-win{max-width:100%}
   .skills-cols{grid-template-columns:1fr}
-  .skill-name-txt{font-size:9px}
-  .skill-pct{font-size:8px}
   .projects-list{grid-template-columns:1fr}
   .proj{box-shadow:4px 4px 0 var(--shadow)}
   .proj:hover{box-shadow:6px 6px 0 var(--shadow)}
@@ -404,4 +488,9 @@ body::before{content:"";position:fixed;inset:0;background-image:radial-gradient(
   .boot-overlay{padding:28px;font-size:9px}
   .hero-tags{gap:7px}
   .hero-tag{font-size:8px;padding:5px 8px}
+  .order-type-grid{grid-template-columns:1fr}
+  .order-pkg-grid{grid-template-columns:1fr}
+  .order-detail-layout{grid-template-columns:1fr}
+  .chat-messages{height:220px}
+  .dash-orders{grid-template-columns:1fr}
 }
