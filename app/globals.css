@@ -51,7 +51,7 @@ body::before{content:"";position:fixed;inset:0;background-image:radial-gradient(
 .top-window .win-titlebar{display:grid;grid-template-columns:auto 1fr auto;gap:18px;align-items:center;min-height:52px;padding:0 12px}
 .top-window .win-title{justify-self:start}
 .top-window .topbar-nav{justify-self:center}
-.top-window .topbar-admin{justify-self:end}
+.topbar-actions{justify-self:end;display:flex;gap:8px;align-items:center}
 .topbar-logo{font-size:13px;color:var(--purple3);letter-spacing:3px}
 .topbar-logo span{color:var(--purple)}
 .topbar-logo-link{text-decoration:underline;text-underline-offset:3px;text-decoration-thickness:2px}
@@ -61,6 +61,20 @@ body::before{content:"";position:fixed;inset:0;background-image:radial-gradient(
 .topbar-nav a:hover{color:var(--purple);text-decoration:none}
 .topbar-admin{font-size:11px;color:var(--dim);background:none;border:2px solid var(--border);padding:8px 13px;cursor:pointer;font-family:"Press Start 2P",monospace;letter-spacing:1px}
 .topbar-admin:hover{border-color:var(--purple);color:var(--purple)}
+.topbar-theme{font-size:11px;color:var(--dim);background:none;border:none;padding:0;cursor:pointer;font-family:"Press Start 2P",monospace;letter-spacing:1px}
+.topbar-theme:hover{color:var(--accent)}
+
+/* theme panel */
+.theme-backdrop{position:fixed;inset:0;background:var(--overlay-bg);display:flex;align-items:center;justify-content:center;z-index:9000}
+.theme-win{width:min(480px,92vw)}
+.theme-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:8px}
+.theme-swatch{background:var(--panel-bg);border:2px solid var(--border);padding:14px 8px;display:flex;flex-direction:column;align-items:center;gap:10px;cursor:pointer;font-family:"Press Start 2P",monospace;transition:border-color .15s}
+.theme-swatch:hover{border-color:var(--swatch-color)}
+.theme-swatch.active{border-color:var(--swatch-color)}
+.theme-swatch-dot{width:22px;height:22px;border-radius:50%;background:var(--swatch-color);display:block}
+.theme-swatch.active .theme-swatch-dot{box-shadow:0 0 0 3px var(--bg),0 0 0 5px var(--swatch-color)}
+.theme-swatch-name{font-size:8px;color:var(--dim);letter-spacing:1px}
+.theme-swatch.active .theme-swatch-name{color:var(--swatch-color)}
 .page{position:relative;z-index:1;max-width:1120px;margin:0 auto;padding:24px 20px 140px}
 .hero{padding:34px 0 44px;display:flex;flex-direction:column;gap:16px}
 .hero-prompt{font-size:12px;color:var(--dim);letter-spacing:3px}
