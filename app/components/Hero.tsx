@@ -10,7 +10,7 @@ const ASCII = ` ██████╗ ██████╗ ██████�
 ╚██████╗╚██████╔╝   ██║██╗███████╗██╔╝ ██╗███████╗
  ╚═════╝ ╚══▀▀═╝    ╚═╝╚═╝╚══════╝╚═╝  ╚═╝╚══════╝`;
 
-const TAGS = ['MINECRAFT PLUGINS', 'WEB DEV', 'DEVOPS'];
+const TAGS = ['MINECRAFT CODER', 'WEB DEV', 'DEVOPS'];
 
 export default function Hero() {
   const [asciiLines, setAsciiLines] = useState<string[]>([]);

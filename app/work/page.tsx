@@ -3,7 +3,7 @@ import Projects from "../components/Projects";
 
 export const metadata: Metadata = {
   title: "WORK | CQT.EXE",
-  description: "Projects — Minecraft plugins, web apps, and DevOps work.",
+  description: "Projects — plugins that ran on real servers, web apps that actually shipped.",
 };
 
 export default function Page() {

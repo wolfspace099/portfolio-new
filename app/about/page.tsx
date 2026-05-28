@@ -3,7 +3,7 @@ import About from "../components/About";
 
 export const metadata: Metadata = {
   title: "ABOUT | CQT.EXE",
-  description: "About Cqt — who I am, what I do, and why I do it.",
+  description: "A cat that codes. College student, perfectionist, Linux user.",
 };
 
 export default function Page() {

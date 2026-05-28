@@ -17,8 +17,6 @@ export default function Nav({ onAdminClick }: Props) {
           <li><a href="/skills">SKILLS</a></li>
           <li><a href="/reviews">REVIEWS</a></li>
           <li><a href="/quote">QUOTE</a></li>
-          <li><a href="/order">ORDER</a></li>
-          <li><a href="/dashboard">DASHBOARD</a></li>
         </ul>
       </nav>
       <button className="topbar-admin" onClick={onAdminClick}>ADMIN.EXE</button>

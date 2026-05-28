@@ -4,7 +4,7 @@ import Specialties from "./components/Specialties";
 
 export const metadata: Metadata = {
   title: "CQT.EXE",
-  description: "Minecraft plugins, web dev, and DevOps — available for hire.",
+  description: "Cat that writes Minecraft plugins and web apps. Available for hire.",
 };
 
 export default function Page() {

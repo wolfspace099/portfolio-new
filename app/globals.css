@@ -344,6 +344,8 @@ body::before{content:"";position:fixed;inset:0;background-image:radial-gradient(
 .auth-notice{border:2px solid var(--accent);padding:12px;font-size:9px;color:var(--accent);line-height:2;margin-bottom:16px}
 
 .qf-field{margin-bottom:18px}
+.qf-optional{opacity:.45;font-size:.7em}
+.qf-refs{min-height:72px}
 
 /* Order Flow */
 .order-flow{display:flex;flex-direction:column;gap:32px}

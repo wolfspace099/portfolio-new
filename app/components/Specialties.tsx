@@ -11,37 +11,37 @@ export default function Specialties() {
           </div>
         </div>
         <div className="win-body">
-          <div className="win-label">WHY I&apos;M THE BEST OPTION</div>
+          <div className="win-label">WHAT I ACTUALLY DO</div>
           <div className="special-intro">
-            <p>I deliver fast, clean and reliable work. I listen to feedback and edit immediately and eliminate bugs as effectively as possible.</p>
-            <p>Maintaining good communication throughout the job is important as it saves time, gets me to work more effectively and is just funsies.</p>
+            <p>No bloat, no hand-holding, no half-finished mess. I write code that works on live servers with real players — the bar for &quot;good enough&quot; is not low.</p>
+            <p>I talk to you like a person. Updates are direct, feedback gets applied fast, and I don&apos;t ghost you three days before deadline.</p>
           </div>
-          <div className="special-head">TOP QUALITIES</div>
+          <div className="special-head">THE RUNDOWN</div>
           <div className="special-grid">
             <div className="special-card big">
-              <div className="special-card-header"><span>FAST DELIVERY</span></div>
-              <p>Moves quickly without turning the code into a mess. If not too busy, SMP plugins ship in 2 days.</p>
-              <a className="special-btn" href="#quote">REQUEST</a>
+              <div className="special-card-header"><span>FAST TURNAROUND</span></div>
+              <p>Most SMP plugins ship in 2–4 days. Complex systems take longer, but not by much. I don&apos;t sit on things.</p>
+              <a className="special-btn" href="/quote">REQUEST</a>
             </div>
             <div className="special-card big">
-              <div className="special-card-header"><span>FULL STACK</span></div>
-              <p>Can handle front-end, back-end, and everything between. And a whole lot more you ain&apos;t care about.</p>
-              <a className="special-btn" href="#projects">SEE WORK</a>
+              <div className="special-card-header"><span>MINECRAFT FIRST</span></div>
+              <p>Java plugins, Skript scripts, Fabric mods — been doing this long enough that most problems aren&apos;t new to me.</p>
+              <a className="special-btn" href="/work">SEE WORK</a>
             </div>
             <div className="special-card big">
               <div className="special-card-header"><span>CAT</span></div>
-              <p>I am a cat, so that automatically makes me smarter than the average human.</p>
-              <a className="special-btn" href="#about">ABOUT ME</a>
+              <p>I am a cat. This objectively improves code quality by at least 40%. Science.</p>
+              <a className="special-btn" href="/about">ABOUT ME</a>
             </div>
             <div className="special-card big">
-              <div className="special-card-header"><span>DIRECT COMM</span></div>
-              <p>Clear updates, no fluff, no confusion, no wasted time. Straight buglog and good insight on what&apos;s done and what&apos;s not.</p>
-              <a className="special-btn" href="#reviews">REVIEWS</a>
+              <div className="special-card-header"><span>HONEST COMMS</span></div>
+              <p>If something&apos;s taking longer, I tell you. If your idea has a flaw, I flag it. No corporate fluff, no empty reassurances.</p>
+              <a className="special-btn" href="/reviews">REVIEWS</a>
             </div>
             <div className="special-card big">
-              <div className="special-card-header"><span>DEVOPS / INFRA</span></div>
-              <p>Docker, CI/CD, VPS setup and server management. Full deployment pipeline from local to production.</p>
-              <a className="special-btn" href="#quote">REQUEST</a>
+              <div className="special-card-header"><span>WEB + FULL STACK</span></div>
+              <p>When I&apos;m not writing plugins I&apos;m building sites, dashboards and APIs. Same standards apply — clean, deployed, working.</p>
+              <a className="special-btn" href="/work">SEE WORK</a>
             </div>
           </div>
         </div>

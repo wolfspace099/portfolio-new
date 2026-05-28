@@ -5,28 +5,31 @@ import { apiPost } from '@/lib/api';
 import { useDiscord } from '@/lib/useDiscord';
 import DiscordVerify from './modals/DiscordVerify';
 
-const DRAFT_KEY = 'quote_draft_v1';
+const DRAFT_KEY = 'quote_draft_v2';
 
 const TILES = [
   {
     id: 'minecraft',
-    name: 'MINECRAFT PLUGIN',
-    desc: 'Java plugins, Skript scripts, custom gamemodes',
-    subtypes: ['Java Plugin', 'Skript script'],
+    name: 'MINECRAFT',
+    desc: 'Plugins, mods, Skript scripts, custom gamemodes',
+    subtypes: ['Java Plugin', 'Fabric / Forge Mod', 'Skript Script', 'Custom Gamemode', 'Other'],
   },
   {
     id: 'web',
     name: 'WEB / FULL STACK',
     desc: 'Websites, dashboards, APIs, full-stack apps',
-    subtypes: ['Web Application', 'Portfolio', 'Dashboard'],
+    subtypes: ['Portfolio / Landing Page', 'Web Application', 'Dashboard', 'API / Backend', 'Other'],
   },
   {
     id: 'devops',
     name: 'DEVOPS / OTHER',
     desc: 'Docker, CI/CD, VPS setup, custom tooling',
-    subtypes: ['DevOps / Infra', 'Other'],
+    subtypes: ['VPS / Server Setup', 'Docker / CI/CD', 'Custom Tooling', 'Other'],
   },
 ];
+
+const BUDGETS = ['Under $25', '$25–$50', '$50–$100', '$100–$250', '$250+', 'Not sure yet'];
+const TIMELINES = ['ASAP', '1–2 weeks', '2–4 weeks', '1–2 months', 'Flexible'];
 
 export default function QuoteForm() {
   const { discordUser, discordToken } = useDiscord();
@@ -34,7 +37,9 @@ export default function QuoteForm() {
   const [name, setName] = useState('');
   const [subtype, setSubtype] = useState('');
   const [budget, setBudget] = useState('');
+  const [timeline, setTimeline] = useState('');
   const [desc, setDesc] = useState('');
+  const [refs, setRefs] = useState('');
   const [done, setDone] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [showVerify, setShowVerify] = useState(false);
@@ -61,7 +66,9 @@ export default function QuoteForm() {
       if (d.tile) setTile(d.tile);
       if (d.subtype) setSubtype(d.subtype);
       if (d.budget) setBudget(d.budget);
+      if (d.timeline) setTimeline(d.timeline);
       if (d.desc) setDesc(d.desc);
+      if (d.refs) setRefs(d.refs);
     } catch { /* ignore */ }
   }, []);
 
@@ -76,19 +83,21 @@ export default function QuoteForm() {
         setTile(d.tile || '');
         setSubtype(d.subtype);
         setBudget(d.budget || '');
+        setTimeline(d.timeline || '');
         setDesc(d.desc);
+        setRefs(d.refs || '');
         sessionStorage.removeItem(DRAFT_KEY);
         sessionStorage.removeItem('quote_oauth_pending_v1');
-        doSubmit(d.name, d.subtype, d.budget || '', d.desc);
+        doSubmit(d.name, d.subtype, d.budget || '', d.timeline || '', d.desc, d.refs || '');
       }
     } catch { /* ignore */ }
   }, [discordUser]);
 
   function saveDraft() {
-    sessionStorage.setItem(DRAFT_KEY, JSON.stringify({ name, tile, subtype, budget, desc }));
+    sessionStorage.setItem(DRAFT_KEY, JSON.stringify({ name, tile, subtype, budget, timeline, desc, refs }));
   }
 
-  async function doSubmit(n: string, t: string, b: string, d: string) {
+  async function doSubmit(n: string, t: string, b: string, tl: string, d: string, r: string) {
     if (!discordUser) { saveDraft(); setShowVerify(true); return; }
     setSubmitting(true);
     try {
@@ -98,7 +107,9 @@ export default function QuoteForm() {
         name: n,
         type: t,
         budget: b || 'Not specified',
+        timeline: tl || 'Not specified',
         description: d,
+        references: r || '',
         discord_username: discordUser.username,
       }, extra);
       if (res.error) { alert('Submit failed: ' + res.error); return; }
@@ -114,12 +125,12 @@ export default function QuoteForm() {
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     if (!name.trim() || !subtype || !desc.trim()) {
-      alert('Please fill in all quote fields.');
+      alert('Please fill in all required fields.');
       return;
     }
     saveDraft();
     if (!discordUser) { setShowVerify(true); return; }
-    doSubmit(name.trim(), subtype, budget, desc.trim());
+    doSubmit(name.trim(), subtype, budget, timeline, desc.trim(), refs.trim());
   }
 
   return (
@@ -169,11 +180,13 @@ export default function QuoteForm() {
                       placeholder="Your name"
                     />
                   </div>
+
                   {discordUser && (
                     <div className="discord-bar visible qf-field">
                       DISCORD: <span>@{discordUser.username}</span>
                     </div>
                   )}
+
                   <div className="form-row2 qf-field">
                     <div className="field">
                       <label>PROJECT TYPE</label>
@@ -188,25 +201,41 @@ export default function QuoteForm() {
                       <label>BUDGET</label>
                       <select value={budget} onChange={e => setBudget(e.target.value)}>
                         <option value="">SELECT...</option>
-                        <option>Under $25</option>
-                        <option>$25 - $35</option>
-                        <option>$40 - $50</option>
-                        <option>$50 - $100</option>
-                        <option>$100+</option>
+                        {BUDGETS.map(b => <option key={b}>{b}</option>)}
                       </select>
                     </div>
                   </div>
+
+                  <div className="field qf-field">
+                    <label>TIMELINE</label>
+                    <select value={timeline} onChange={e => setTimeline(e.target.value)}>
+                      <option value="">SELECT...</option>
+                      {TIMELINES.map(t => <option key={t}>{t}</option>)}
+                    </select>
+                  </div>
+
                   <div className="field qf-field">
                     <label>DESCRIPTION</label>
                     <textarea
                       value={desc}
                       onChange={e => setDesc(e.target.value)}
                       required
-                      placeholder="Describe your project, goals and timeline..."
+                      placeholder="Describe your project, goals, and any specific requirements..."
                     />
                   </div>
+
+                  <div className="field qf-field">
+                    <label>REFERENCES <span className="qf-optional">(optional)</span></label>
+                    <textarea
+                      className="qf-refs"
+                      value={refs}
+                      onChange={e => setRefs(e.target.value)}
+                      placeholder="Links, examples, or anything visual that shows what you're going for..."
+                    />
+                  </div>
+
                   <button type="submit" className="form-submit" disabled={submitting}>
-                    {submitting ? 'SUBMITTING...' : 'SUBMIT REQUEST'}
+                    {submitting ? 'SUBMITTING...' : !discordUser ? 'LOGIN WITH DISCORD TO SUBMIT' : 'SUBMIT REQUEST'}
                   </button>
                 </div>
               </form>

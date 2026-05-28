@@ -22,9 +22,7 @@ export default function Skills() {
                 <div className="skill-group-title">{grp.group}</div>
                 <div className="skill-cards">
                   {grp.items.map(item => (
-                    <div key={item.name} className="skill-card">
-                      {item.name}
-                    </div>
+                    <div key={item} className="skill-card">{item}</div>
                   ))}
                 </div>
               </section>
