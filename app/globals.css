@@ -113,10 +113,10 @@ body::before{content:"";position:fixed;inset:0;background-image:radial-gradient(
 .hero-btns{display:flex;gap:14px;flex-wrap:wrap;margin-top:10px}
 .btn{font-family:"Press Start 2P",monospace;font-size:12px;padding:14px 22px;cursor:pointer;letter-spacing:1px;border:none;text-decoration:none;display:inline-block}
 .btn:hover{text-decoration:none}
-.btn-fill{background:var(--accent);color:var(--button-text);box-shadow:4px 4px 0 rgba(0,0,0,.28)}
-.btn-fill:hover{background:#86efac}
-.btn-outline{background:transparent;color:var(--purple);border:3px solid var(--border);box-shadow:4px 4px 0 rgba(0,0,0,.28)}
-.btn-outline:hover{border-color:var(--purple)}
+.btn-fill{background:var(--accent);color:var(--button-text);box-shadow:4px 4px 0 rgba(0,0,0,.28);transition:filter .15s}
+.btn-fill:hover{filter:brightness(1.18)}
+.btn-outline{background:transparent;color:var(--purple);border:3px solid var(--border);box-shadow:4px 4px 0 rgba(0,0,0,.28);transition:border-color .15s,color .15s}
+.btn-outline:hover{border-color:var(--accent);color:var(--accent)}
 .win{margin:82px 0;border:2px solid var(--border);background:var(--bg2);box-shadow:3px 3px 0 var(--shadow),5px 5px 0 rgba(0,0,0,.18)}
 .win-titlebar{background:var(--win-bar);border-bottom:2px solid var(--win-bar-b);height:36px;padding:0 10px;display:flex;align-items:center;justify-content:space-between;user-select:none}
 .win-title{font-size:12px;color:var(--purple3);letter-spacing:3px}
@@ -157,8 +157,8 @@ body::before{content:"";position:fixed;inset:0;background-image:radial-gradient(
 .special-card h4::before{content:""}
 .special-card p{font-size:10px;color:var(--dim);line-height:2;padding:16px;flex:1}
 .special-card.big{min-height:170px}
-.special-btn{display:inline-block;align-self:flex-end;margin:0 14px 14px 14px;font-family:"Press Start 2P",monospace;font-size:8px;color:var(--purple);border:2px solid var(--border);background:var(--bg);padding:8px 10px;letter-spacing:1px}
-.special-btn:hover{border-color:var(--purple);color:var(--purple2);text-decoration:none;background:var(--hover-bg)}
+.special-btn{display:inline-block;align-self:flex-end;margin:0 14px 14px 14px;font-family:"Press Start 2P",monospace;font-size:8px;color:var(--purple);border:2px solid var(--border);background:var(--bg);padding:8px 10px;letter-spacing:1px;transition:border-color .15s,color .15s,background .15s}
+.special-btn:hover{border-color:var(--accent);color:var(--accent);text-decoration:none;background:var(--hover-bg)}
 
 .proj-filter{display:flex;gap:0;margin-bottom:22px;border-bottom:2px solid var(--border)}
 .proj-filter-btn{font-family:"Press Start 2P",monospace;font-size:9px;padding:10px 16px;background:var(--bg);border:2px solid transparent;border-bottom:none;color:var(--dim);cursor:pointer;letter-spacing:1px;position:relative;bottom:-2px}
