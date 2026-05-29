@@ -1,17 +1,21 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { THEMES, applyTheme, getSavedThemeId } from '@/lib/theme';
+import { THEMES, BG_PRESETS, applyTheme, applyBg, getSavedThemeId, getSavedBgId } from '@/lib/theme';
 
 interface Props {
   onClose: () => void;
+  neonActive: boolean;
+  onNeonToggle: () => void;
 }
 
-export default function ThemePanel({ onClose }: Props) {
+export default function ThemePanel({ onClose, neonActive, onNeonToggle }: Props) {
   const [activeId, setActiveId] = useState('green');
+  const [activeBgId, setActiveBgId] = useState('void');
 
   useEffect(() => {
     setActiveId(getSavedThemeId());
+    setActiveBgId(getSavedBgId());
   }, []);
 
   function pick(id: string) {
@@ -19,6 +23,13 @@ export default function ThemePanel({ onClose }: Props) {
     if (!t) return;
     applyTheme(t);
     setActiveId(id);
+  }
+
+  function pickBg(id: string) {
+    const p = BG_PRESETS.find(p => p.id === id);
+    if (!p) return;
+    applyBg(p);
+    setActiveBgId(id);
   }
 
   return (
@@ -45,6 +56,33 @@ export default function ThemePanel({ onClose }: Props) {
               </button>
             ))}
           </div>
+
+          <div className="win-label win-label-mt">BACKGROUND</div>
+          <div className="theme-bg-grid">
+            {BG_PRESETS.map(p => (
+              <button
+                key={p.id}
+                className={`theme-swatch bg-swatch${activeBgId === p.id ? ' active' : ''}`}
+                style={{ '--swatch-color': p.swatch } as React.CSSProperties}
+                onClick={() => pickBg(p.id)}
+              >
+                <span className="theme-swatch-dot" />
+                <span className="theme-swatch-name">{p.name}</span>
+              </button>
+            ))}
+          </div>
+
+          <div className="win-label win-label-mt">SPECIAL</div>
+          <button
+            className={`theme-neon-btn${neonActive ? ' active' : ''}`}
+            onClick={onNeonToggle}
+          >
+            <span className="theme-neon-label">NEON</span>
+            <span className="theme-neon-status">{neonActive ? 'ON' : 'OFF'}</span>
+          </button>
+          {neonActive && (
+            <p className="theme-neon-hint">BG CYCLING — BLACK / WHITE / GREEN / PINK</p>
+          )}
         </div>
       </div>
     </div>
