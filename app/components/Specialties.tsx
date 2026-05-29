@@ -14,7 +14,7 @@ export default function Specialties() {
           <div className="win-label">WHAT I ACTUALLY DO</div>
           <div className="special-intro">
             <p>No bloat, no hand-holding, no half-finished mess. I write code that works on live servers with real players — the bar for &quot;good enough&quot; is not low.</p>
-            <p>I talk to you like a person. Updates are direct, feedback gets applied fast, and I don&apos;t ghost you three days before deadline.</p>
+            <p>I talk to you like a person. Updates are direct, feedback gets applied fast, and I don&apos;t ghost you three days before deadline. And AI is stupid, so better hire me.</p>
           </div>
           <div className="special-head">THE RUNDOWN</div>
           <div className="special-grid">
@@ -30,17 +30,17 @@ export default function Specialties() {
             </div>
             <div className="special-card big">
               <div className="special-card-header"><span>CAT</span></div>
-              <p>I am a cat. This objectively improves code quality by at least 40%. Science.</p>
+              <p>I am a cat. This objectively improves code quality by at least 4000%. Science.</p>
               <a className="special-btn" href="/about">ABOUT ME</a>
             </div>
             <div className="special-card big">
               <div className="special-card-header"><span>HONEST COMMS</span></div>
-              <p>If something&apos;s taking longer, I tell you. If your idea has a flaw, I flag it. No corporate fluff, no empty reassurances.</p>
+              <p>If something&apos;s taking longer, I tell you. If your idea has a flaw, Ill tell you. No money traps, blurred communication. I don't like corporate D:</p>
               <a className="special-btn" href="/reviews">REVIEWS</a>
             </div>
             <div className="special-card big">
               <div className="special-card-header"><span>WEB + FULL STACK</span></div>
-              <p>When I&apos;m not writing plugins I&apos;m building sites, dashboards and APIs. Same standards apply — clean, deployed, working.</p>
+              <p>When I&apos;m not writing plugins I&apos;m building sites, dashboards and APIs. Same standards apply — clean, deployed, working. And most of all, fun, cause coding is the best thing ever.</p>
               <a className="special-btn" href="/work">SEE WORK</a>
             </div>
           </div>
