@@ -1,11 +1,11 @@
 import type { Metadata } from "next";
-import About from "../components/About";
+import Desktop from "../components/desktop/Desktop";
 
 export const metadata: Metadata = {
-  title: "ABOUT | CQT.EXE",
+  title: "About | Cqt",
   description: "Full-stack developer specialising in Minecraft plugins, web applications and DevOps.",
 };
 
 export default function Page() {
-  return <About />;
+  return <Desktop initialApp="about" />;
 }

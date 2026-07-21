@@ -1,11 +1,11 @@
 import type { Metadata } from "next";
-import QuoteForm from "../components/QuoteForm";
+import Desktop from "../components/desktop/Desktop";
 
 export const metadata: Metadata = {
-  title: "QUOTE | CQT.EXE",
+  title: "Get a Quote | Cqt",
   description: "Request a quote for your project.",
 };
 
 export default function Page() {
-  return <QuoteForm />;
+  return <Desktop initialApp="quote" />;
 }

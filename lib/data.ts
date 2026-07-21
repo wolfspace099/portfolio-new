@@ -1,3 +1,33 @@
+export type Profile = {
+  handle: string
+  name: string
+  title: string
+  location: string
+  status: string
+  bio: string[]
+  github: string
+  discord: string
+  email: string
+  linkedin: string
+}
+
+export const PROFILE: Profile = {
+  handle: 'Cqt',
+  name: 'Cqt',
+  title: 'Full-Stack & Minecraft Developer',
+  location: 'Remote',
+  status: 'Open for work',
+  bio: [
+    'I build things that run in production and stay running. My focus is Minecraft plugins and full-stack web apps — Java on live servers, TypeScript and React on the web.',
+    'I care about the details: clean, readable code, honest communication, and shipping work that actually holds up under real users. No half-finished handoffs.',
+    'Comfortable across the stack — from writing a Paper plugin to deploying a Next.js app and wiring up the CI that ships it.',
+  ],
+  github: 'https://github.com/wolfspace099',
+  discord: '',
+  email: '',
+  linkedin: '',
+}
+
 export type Project = {
   name: string
   desc: string
@@ -71,12 +101,4 @@ export const SKILLS: SkillGroup[] = [
     group: 'DEVOPS / TOOLS',
     items: ['Git', 'Linux / CLI', 'Docker / CI-CD', 'Supabase', 'Vercel'],
   },
-]
-
-export const PHRASES = [
-  'Full-Stack Developer',
-  'Minecraft Plugin Engineer',
-  'Web & App Builder',
-  'DevOps & Automation',
-  'Available for hire',
 ]

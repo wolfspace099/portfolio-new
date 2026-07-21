@@ -57,17 +57,7 @@ export default function Reviews() {
 
   return (
     <>
-      <section id="reviews">
-        <div className="win">
-          <div className="win-titlebar">
-            <span className="win-title">REVIEWS<span className="dim">.TXT</span></span>
-            <div className="win-controls">
-              <div className="win-btn">-</div>
-              <div className="win-btn">+</div>
-              <div className="win-btn">x</div>
-            </div>
-          </div>
-          <div className="win-body">
+      <div className="kapp reviews-app">
             <div className="reviews-head">
               <div className="win-label">CLIENT TESTIMONIALS</div>
               <button
@@ -121,9 +111,7 @@ export default function Reviews() {
                 </button>
               </div>
             )}
-          </div>
-        </div>
-      </section>
+      </div>
 
       {showReview && (
         <ReviewPopup
