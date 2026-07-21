@@ -37,64 +37,80 @@ export function getApp(id: AppId): AppDef {
 const ICONS: Record<AppId | 'launcher' | 'power', ReactNode> = {
   about: (
     <>
-      <circle cx="12" cy="8" r="4" />
-      <path d="M4 20c0-4 3.5-6 8-6s8 2 8 6" />
+      <rect x="6" y="2" width="4" height="4" />
+      <rect x="5" y="8" width="6" height="2" />
+      <rect x="4" y="10" width="8" height="4" />
     </>
   ),
   work: (
     <>
-      <path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
+      <rect x="2" y="4" width="5" height="2" />
+      <rect x="2" y="6" width="12" height="8" />
     </>
   ),
   skills: (
     <>
-      <rect x="7" y="7" width="10" height="10" rx="1" />
-      <path d="M10 3v4M14 3v4M10 17v4M14 17v4M3 10h4M3 14h4M17 10h4M17 14h4" />
+      <rect x="5" y="5" width="6" height="6" />
+      <rect x="6" y="2" width="1" height="2" /><rect x="9" y="2" width="1" height="2" />
+      <rect x="6" y="12" width="1" height="2" /><rect x="9" y="12" width="1" height="2" />
+      <rect x="2" y="6" width="2" height="1" /><rect x="2" y="9" width="2" height="1" />
+      <rect x="12" y="6" width="2" height="1" /><rect x="12" y="9" width="2" height="1" />
     </>
   ),
   terminal: (
     <>
-      <rect x="3" y="4" width="18" height="16" rx="2" />
-      <path d="M7 9l3 3-3 3M13 15h4" />
+      <rect x="2" y="3" width="12" height="1" /><rect x="2" y="12" width="12" height="1" />
+      <rect x="2" y="3" width="1" height="10" /><rect x="13" y="3" width="1" height="10" />
+      <rect x="4" y="6" width="1" height="1" /><rect x="5" y="7" width="1" height="1" /><rect x="4" y="8" width="1" height="1" />
+      <rect x="7" y="9" width="4" height="1" />
     </>
   ),
   reviews: (
     <>
-      <path d="M12 3.5l2.6 5.3 5.9.9-4.3 4.1 1 5.8L12 16.9 6.8 19.6l1-5.8L3.5 9.7l5.9-.9z" />
+      <rect x="7" y="2" width="2" height="3" />
+      <rect x="2" y="6" width="12" height="2" />
+      <rect x="5" y="7" width="6" height="3" />
+      <rect x="4" y="10" width="3" height="3" /><rect x="9" y="10" width="3" height="3" />
     </>
   ),
   quote: (
     <>
-      <path d="M6 3h9l3 3v15a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1z" />
-      <path d="M14 3v4h4M8 12h8M8 16h6" />
+      <rect x="3" y="2" width="10" height="1" /><rect x="3" y="13" width="10" height="1" />
+      <rect x="3" y="2" width="1" height="12" /><rect x="12" y="2" width="1" height="12" />
+      <rect x="5" y="5" width="6" height="1" /><rect x="5" y="7" width="6" height="1" /><rect x="5" y="9" width="4" height="1" />
     </>
   ),
   contact: (
     <>
-      <rect x="5" y="3" width="14" height="18" rx="2" />
-      <path d="M3 8h2M3 12h2M3 16h2" />
-      <circle cx="12" cy="10" r="2.4" />
-      <path d="M8.5 17c.6-2 2-3 3.5-3s2.9 1 3.5 3" />
+      <rect x="3" y="2" width="10" height="1" /><rect x="3" y="13" width="10" height="1" />
+      <rect x="3" y="2" width="1" height="12" /><rect x="12" y="2" width="1" height="12" />
+      <rect x="1" y="4" width="1" height="1" /><rect x="1" y="7" width="1" height="1" /><rect x="1" y="10" width="1" height="1" />
+      <rect x="7" y="5" width="2" height="2" /><rect x="6" y="8" width="4" height="2" />
     </>
   ),
   settings: (
     <>
-      <circle cx="12" cy="12" r="3" />
-      <path d="M12 2v3M12 19v3M4.2 4.2l2.1 2.1M17.7 17.7l2.1 2.1M2 12h3M19 12h3M4.2 19.8l2.1-2.1M17.7 6.3l2.1-2.1" />
+      <rect x="6" y="6" width="4" height="4" />
+      <rect x="7" y="2" width="2" height="2" /><rect x="7" y="12" width="2" height="2" />
+      <rect x="2" y="7" width="2" height="2" /><rect x="12" y="7" width="2" height="2" />
+      <rect x="3" y="3" width="2" height="2" /><rect x="11" y="3" width="2" height="2" />
+      <rect x="3" y="11" width="2" height="2" /><rect x="11" y="11" width="2" height="2" />
     </>
   ),
   launcher: (
     <>
-      <rect x="3" y="3" width="7" height="7" rx="1.5" />
-      <rect x="14" y="3" width="7" height="7" rx="1.5" />
-      <rect x="3" y="14" width="7" height="7" rx="1.5" />
-      <rect x="14" y="14" width="7" height="7" rx="1.5" />
+      <rect x="2" y="2" width="5" height="5" />
+      <rect x="9" y="2" width="5" height="5" />
+      <rect x="2" y="9" width="5" height="5" />
+      <rect x="9" y="9" width="5" height="5" />
     </>
   ),
   power: (
     <>
-      <path d="M12 3v9" />
-      <path d="M7.5 6.5a7 7 0 1 0 9 0" />
+      <rect x="7" y="2" width="2" height="6" />
+      <rect x="4" y="5" width="1" height="2" /><rect x="11" y="5" width="1" height="2" />
+      <rect x="3" y="7" width="1" height="4" /><rect x="12" y="7" width="1" height="4" />
+      <rect x="4" y="11" width="8" height="1" /><rect x="5" y="12" width="6" height="1" />
     </>
   ),
 }
@@ -105,13 +121,10 @@ export function AppIcon({ id, size = 24 }: { id: AppId | 'launcher' | 'power'; s
       className="app-icon"
       width={size}
       height={size}
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth={2}
-      strokeLinecap="square"
-      strokeLinejoin="miter"
-      shapeRendering="geometricPrecision"
+      viewBox="0 0 16 16"
+      fill="currentColor"
+      stroke="none"
+      shapeRendering="crispEdges"
       aria-hidden="true"
     >
       {ICONS[id]}
