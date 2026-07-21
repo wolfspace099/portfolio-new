@@ -14,8 +14,8 @@ export default function EasterPopup({ onClose }: Props) {
         </div>
         <div className="easter-body">
           <p>
-            Dipshit, you really think<br />
-            that is <span className="acc">my password?</span>
+            Nice try — but that is<br />
+            not <span className="acc">the password.</span>
           </p>
         </div>
       </div>

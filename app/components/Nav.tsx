@@ -45,7 +45,7 @@ export default function Nav({ onAdminClick, onThemeClick }: Props) {
           </ul>
         </nav>
         <div className="topbar-actions">
-          <button className="topbar-theme" onClick={onThemeClick}>:3</button>
+          <button className="topbar-theme" onClick={onThemeClick} aria-label="Theme">[~]</button>
           <button className="topbar-admin" onClick={onAdminClick}>ADMIN.EXE</button>
           <button
             className={`mob-menu-btn${open ? ' active' : ''}`}
@@ -71,7 +71,7 @@ export default function Nav({ onAdminClick, onThemeClick }: Props) {
           ))}
           <div className="mob-dropdown-actions">
             <button className="mob-dropdown-btn" onClick={() => { setOpen(false); onThemeClick(); }}>
-              :3 THEME
+              [~] THEME
             </button>
             <button className="mob-dropdown-btn" onClick={() => { setOpen(false); onAdminClick(); }}>
               ADMIN.EXE
