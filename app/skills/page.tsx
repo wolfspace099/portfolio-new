@@ -1,11 +1,11 @@
 import type { Metadata } from "next";
-import Skills from "../components/Skills";
+import Desktop from "../components/desktop/Desktop";
 
 export const metadata: Metadata = {
-  title: "SKILLS | CQT.EXE",
-  description: "What I actually know and use — Java, TypeScript, React, Linux, and more.",
+  title: "Skills | Cqt",
+  description: "What I know and use — Java, TypeScript, React, Linux, and more.",
 };
 
 export default function Page() {
-  return <Skills />;
+  return <Desktop initialApp="skills" />;
 }

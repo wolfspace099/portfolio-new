@@ -3,11 +3,11 @@
 import { useState, useEffect } from 'react';
 
 const LINES = [
-  'INITIALIZING CQT.EXE...',
-  'LOADING MODULES...',
-  'SUPABASE.CONN',
-  'DISCORD.AUTH',
-  'BOOT OK',
+  '[  OK  ] Reached target Graphical Interface',
+  '[  OK  ] Started Display Manager',
+  '[  OK  ] Started Plasma Workspace',
+  'Starting Cqt Desktop…',
+  'Welcome.',
 ];
 
 interface Props {

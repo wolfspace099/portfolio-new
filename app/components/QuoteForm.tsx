@@ -135,18 +135,8 @@ export default function QuoteForm() {
 
   return (
     <>
-      <section id="quote">
-        <div className="win">
-          <div className="win-titlebar">
-            <span className="win-title">QUOTE<span className="dim">.EXE</span></span>
-            <div className="win-controls">
-              <div className="win-btn">-</div>
-              <div className="win-btn">+</div>
-              <div className="win-btn">x</div>
-            </div>
-          </div>
-          <div className="win-body">
-            <div className="win-label">REQUEST A QUOTE</div>
+      <div className="kapp quote-app">
+        <div className="win-label">REQUEST A QUOTE</div>
             {done ? (
               <div className="form-done show">
                 REQUEST RECEIVED<br /><br />
@@ -239,10 +229,8 @@ export default function QuoteForm() {
                   </button>
                 </div>
               </form>
-            )}
-          </div>
-        </div>
-      </section>
+        )}
+      </div>
 
       {showVerify && (
         <DiscordVerify

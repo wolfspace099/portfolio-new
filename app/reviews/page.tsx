@@ -1,11 +1,11 @@
 import type { Metadata } from "next";
-import Reviews from "../components/Reviews";
+import Desktop from "../components/desktop/Desktop";
 
 export const metadata: Metadata = {
-  title: "REVIEWS | CQT.EXE",
+  title: "Reviews | Cqt",
   description: "Client reviews and testimonials.",
 };
 
 export default function Page() {
-  return <Reviews />;
+  return <Desktop initialApp="reviews" />;
 }
