@@ -11,10 +11,10 @@ export default function Specialties() {
           </div>
         </div>
         <div className="win-body">
-          <div className="win-label">WHAT I ACTUALLY DO</div>
+          <div className="win-label">WHAT I DO</div>
           <div className="special-intro">
-            <p>No bloat, no hand-holding, no half-finished mess. I write code that works on live servers with real players — the bar for &quot;good enough&quot; is not low.</p>
-            <p>I talk to you like a person. Updates are direct, feedback gets applied fast, and I don&apos;t ghost you three days before deadline. And AI is stupid, so better hire me.</p>
+            <p>No bloat, no half-finished work. I write code that runs on live servers with real players — the bar for &quot;good enough&quot; is not low.</p>
+            <p>Communication is direct and reliable. Updates are clear, feedback gets applied quickly, and deadlines are respected. You always know where a project stands.</p>
           </div>
           <div className="special-head">THE RUNDOWN</div>
           <div className="special-grid">
@@ -29,18 +29,18 @@ export default function Specialties() {
               <a className="special-btn" href="/work">SEE WORK</a>
             </div>
             <div className="special-card big">
-              <div className="special-card-header"><span>CAT</span></div>
-              <p>I am a cat. This objectively improves code quality by at least 4000%. Science.</p>
+              <div className="special-card-header"><span>CLEAN CODE</span></div>
+              <p>Readable, maintainable, and documented where it matters. Each feature does one thing, so the codebase stays easy to extend and hand off.</p>
               <a className="special-btn" href="/about">ABOUT ME</a>
             </div>
             <div className="special-card big">
               <div className="special-card-header"><span>HONEST COMMS</span></div>
-              <p>If something&apos;s taking longer, I tell you. If your idea has a flaw, Ill tell you. No money traps, blurred communication. I don't like corporate D:</p>
+              <p>If something is taking longer, I say so. If an idea has a flaw, I raise it early. No hidden costs and no vague timelines — just straight answers.</p>
               <a className="special-btn" href="/reviews">REVIEWS</a>
             </div>
             <div className="special-card big">
               <div className="special-card-header"><span>WEB + FULL STACK</span></div>
-              <p>When I&apos;m not writing plugins I&apos;m building sites, dashboards and APIs. Same standards apply — clean, deployed, working. And most of all, fun, cause coding is the best thing ever.</p>
+              <p>Beyond plugins, I build websites, dashboards and APIs. Same standards apply throughout — clean, deployed, and working in production.</p>
               <a className="special-btn" href="/work">SEE WORK</a>
             </div>
           </div>

@@ -74,9 +74,9 @@ export const SKILLS: SkillGroup[] = [
 ]
 
 export const PHRASES = [
-  'Full-Stack developer',
-  'Pussie lover <3',
-  'Plugin developer',
-  'Meow :3',
-  'I like cat food',
+  'Full-Stack Developer',
+  'Minecraft Plugin Engineer',
+  'Web & App Builder',
+  'DevOps & Automation',
+  'Available for hire',
 ]

@@ -5,7 +5,7 @@ import { THEME_INIT_SCRIPT } from "@/lib/theme";
 
 export const metadata: Metadata = {
   title: "CQT.EXE",
-  description: "Cat that writes Minecraft plugins and web apps. Available for hire.",
+  description: "Full-stack developer building Minecraft plugins, web apps and tooling. Available for hire.",
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
